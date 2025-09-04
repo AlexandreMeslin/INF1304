@@ -1,0 +1,17 @@
+<SinalgoConfiguration>
+    <ProjectName>FloodingExample</ProjectName>
+    <NumberOfNodes>20</NumberOfNodes>
+    <NodeImplementation>nodes.nodeImplementations.FloodNode</NodeImplementation>
+    <Model>
+        <Distribution ModelType="Random" />
+        <Connectivity ModelType="UDG"/>
+        <Interference ModelType="UDG"/>
+    </Model>
+    <Framework>
+        <RadioModel>Ideal</RadioModel>
+        <MobilityModel>Random</MobilityModel>
+    </Framework>
+    <Output>
+        <ShowGui>true</ShowGui>
+    </Output>
+</SinalgoConfiguration>

@@ -4,7 +4,8 @@ services:
     # https://hub.docker.com/r/apache/kafka
     # https://stackoverflow.com/questions/78807386/kafka-kraft-mode-with-docker-compose
     container_name: kafka1
-    image: apache/kafka:4.0.0
+    #image: apache/kafka:4.0.0
+    build: ./kafka
     ports:
       - "9092:9092"
       - "19092:19092" # Expose CONTROLLER port for host access
@@ -31,11 +32,12 @@ services:
         reservations:
           memory: 512M
     networks:
-      - my-network
+      - int-network
 
   kafka2:
     container_name: kafka2
-    image: apache/kafka:4.0.0
+    #image: apache/kafka:4.0.0
+    build: ./kafka
     ports:
       - "9093:9093"
       - "19093:19093" # Expose CONTROLLER port for host access
@@ -62,11 +64,12 @@ services:
         reservations:
           memory: 512M
     networks:
-      - my-network
+      - int-network
 
   kafka3:
     container_name: kafka3
-    image: apache/kafka:4.0.0
+    #image: apache/kafka:4.0.0
+    build: ./kafka
     ports:
       - "9094:9094"
       - "19094:19094" # Expose CONTROLLER port for host access
@@ -93,7 +96,7 @@ services:
         reservations:
           memory: 512M
     networks:
-      - my-network
+      - int-network
 
   producer-service0:
     container_name: producer_service0
@@ -113,7 +116,8 @@ services:
     environment:
       KAFKA_BROKERS: kafka1:9092,kafka2:9093,kafka3:9094
     networks:
-      - my-network
+      - int-network
+      - ext-network
 
   producer-service1:
     container_name: producer_service1
@@ -133,7 +137,8 @@ services:
     environment:
       KAFKA_BROKERS: kafka2:9093,kafka1:9092,kafka3:9094
     networks:
-      - my-network
+      - int-network
+      - ext-network
 
   consumer-service0:
     container_name: consumer_service0
@@ -153,7 +158,8 @@ services:
     environment:
       KAFKA_BROKERS: kafka1:9092,kafka2:9093,kafka3:9094
     networks:
-      - my-network
+      - int-network
+      - ext-network
 
   consumer-service1:
     container_name: consumer_service1
@@ -173,7 +179,8 @@ services:
     environment:
       KAFKA_BROKERS: kafka2:9093,kafka1:9092,kafka3:9094
     networks:
-      - my-network
+      - int-network
+      - ext-network
 
   frontend:
     container_name: frontend1
@@ -185,11 +192,14 @@ services:
     ports:
       - "8000:8000"
     networks:
-      - my-network
+      - ext-network
 
 networks:
-  my-network:
+  ext-network:
     driver: bridge
+  int-network:
+    driver: bridge
+    internal: true
 
 volumes:
   kafka1_logs:

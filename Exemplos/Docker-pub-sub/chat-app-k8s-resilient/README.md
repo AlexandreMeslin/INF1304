@@ -61,7 +61,7 @@ $ make clean
     ```bash
     chat-app-k8s-resilient (main) $ minikube start
     ```
-    Saída:
+    Saída esperada:
     ```bash
     😄  minikube v1.36.0 on Ubuntu 24.04 (docker/amd64)
     ✨  Using the docker driver based on existing profile
@@ -81,7 +81,7 @@ $ make clean
     ```bash
     chat-app (main) $ ./build-image.sh 
     ```
-    Saída:
+    Saída esperada:
     ```text
     [INFO] Scanning for projects...
     [INFO] 
@@ -190,7 +190,7 @@ $ make clean
     ```bash
     chat-app-k8s-resilient (main) $ make up
     ```
-    Saída:
+    Saída esperada:
     ```bash
     Carregando imagens locais para o Minikube...
     minikube image load producer-service:latest
@@ -210,6 +210,12 @@ $ make clean
     deployment.apps/producer-service created
     service/zookeeper created
     statefulset.apps/zookeeper created
+    ```
+
+    O comando `make up` é equivalente a usar os seguintes comandos:
+    ```bash
+    $ kubectl create namespace kafka-demo
+    
     ```
 
 1. Para verificar o estado:
@@ -303,6 +309,61 @@ $ make clean
     Removendo namespace kafka-demo e todos os recursos...
     kubectl delete namespace kafka-demo --ignore-not-found
     ```
-    
+
+## Problemas conhecidos e suas "soluções"
+
+1. Erro ao iniciar o `minikube`:
+    - Sintoma:
+        ```bash
+        $ minikube start
+        😄  minikube v1.36.0 on Ubuntu 24.04 (docker/amd64)
+        ✨  Using the docker driver based on existing profile
+        👍  Starting "minikube" primary control-plane node in "minikube" cluster
+        🚜  Pulling base image v0.0.47 ...
+        🤷  docker "minikube" container is missing, will recreate.
+        🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+        🐳  Preparing Kubernetes v1.33.1 on Docker 28.1.1 ...
+        🔎  Verifying Kubernetes components...
+            ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+        ❗  Enabling 'storage-provisioner' returned an error: running callbacks: [sudo KUBECONFIG=/var/lib/minikube/kubeconfig /var/lib/minikube/binaries/v1.33.1/kubectl apply --force -f /etc/kubernetes/addons/storage-provisioner.yaml: Process exited with status 1
+        stdout:
+
+        stderr:
+        error: error validating "/etc/kubernetes/addons/storage-provisioner.yaml": error validating data: failed to download openapi: Get "https://localhost:8443/openapi/v2?timeout=32s": dial tcp [::1]:8443: connect: connection refused; if you choose to ignore these errors, turn validation off with --validate=false
+        ]
+        ❗  Enabling 'default-storageclass' returned an error: running callbacks: [sudo KUBECONFIG=/var/lib/minikube/kubeconfig /var/lib/minikube/binaries/v1.33.1/kubectl apply --force -f /etc/kubernetes/addons/storageclass.yaml: Process exited with status 1
+        stdout:
+
+        stderr:
+        error: error validating "/etc/kubernetes/addons/storageclass.yaml": error validating data: failed to download openapi: Get "https://localhost:8443/openapi/v2?timeout=32s": dial tcp [::1]:8443: connect: connection refused; if you choose to ignore these errors, turn validation off with --validate=false
+        ]
+        🌟  Enabled addons: 
+
+        ❌  Exiting due to K8S_APISERVER_MISSING: wait 6m0s for node: wait for apiserver proc: apiserver process never appeared
+        💡  Suggestion: Check that the provided apiserver flags are valid, and that SELinux is disabled
+        🍿  Related issues:
+            ▪ https://github.com/kubernetes/minikube/issues/4536
+            ▪ https://github.com/kubernetes/minikube/issues/6014    
+        ```
+    - Causa (*root-cause*):
+
+        Provavelmente o `minikube` tentou iniciar com uma configuração errada ou corrompida
+
+    - Solução:
+
+        Apagar as configurações:
+        ```bash
+        $ minikube delete --all --purge
+        ```
+        Resultado esperado:
+        ```bash
+        🔥  Deleting "minikube" in docker ...
+        🔥  Removing /home/codespace/.minikube/machines/minikube ...
+        💀  Removed all traces of the "minikube" cluster.
+        🔥  Successfully deleted all profiles
+        💀  Successfully purged minikube directory located at - [/home/codespace/.minikube]
+        📌  Kicbase images have not been deleted. To delete images run:
+            ▪ docker rmi gcr.io/k8s-minikube/kicbase:v0.0.47
+        ```
 
 

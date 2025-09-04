@@ -22,7 +22,6 @@ stop:
 	docker stop kafka2 || true
 	docker stop kafka3 || true
 	docker stop frontend1 || true
-	docker stop router || true
 	docker rm consumer_service0 || true
 	docker rm consumer_service1 || true
 	docker rm producer_service0 || true
@@ -31,7 +30,6 @@ stop:
 	docker rm kafka2 || true
 	docker rm kafka3 || true
 	docker rm frontend1 || true
-	docker rm router || true
 	docker ps -a
 
 # Compila o produtor

@@ -28,7 +28,7 @@ load-images:
 ## Sobe todos os recursos definidos nos YAMLs
 up: load-images
 	@echo "Criando namespace (se não existir)..."
-	-kubectl create namespace $(NAMESPACE) || true
+	kubectl create namespace $(NAMESPACE) || true
 	@echo "Aplicando manifests..."
 	kubectl apply -n $(NAMESPACE) -f .
 

@@ -44,7 +44,7 @@ $ docker volume inspect chat-app-cluster_kafka3_logs
     ```bash
     $ docker exec -it kafka1 kafka-topics.sh --bootstrap-server kafka1:9092 --list
     ```
-    Para a versão >=4:
+    Para a versão >=4 (ou faça melhor, personalize a sua imagem incluindo `/opt/kafka/bin na path`):
     ```bash
     $ docker exec -it kafka1 /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka1:9092 --list
     ```
