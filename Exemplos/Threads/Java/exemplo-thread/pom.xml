@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>Exemplo Thread</name>
-  <url>http://maven.apache.org</url>
+  <url>http://meslin.com.br</url>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>

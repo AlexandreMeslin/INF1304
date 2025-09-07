@@ -214,8 +214,10 @@ $ make clean
 
     O comando `make up` é equivalente a usar os seguintes comandos:
     ```bash
+    $ minikube image load producer-service:latest
+    $ minikube image load consumer-service:latest
     $ kubectl create namespace kafka-demo
-    
+    $ kubectl apply -n kafka-demo -f .
     ```
 
 1. Para verificar o estado:
