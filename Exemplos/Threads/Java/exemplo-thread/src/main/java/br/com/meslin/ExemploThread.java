@@ -3,7 +3,8 @@
  * Para compilar:
  * - $ mvn clean package
  * Para executar:
- * 
+ * - $ java -cp target/exemplo-thread-1.0-SNAPSHOT.jar br.com.meslin.ExemploThread
+ * - $ java -jar target/exemplo-thread-1.0-SNAPSHOT.jar
  */
 package br.com.meslin;
 

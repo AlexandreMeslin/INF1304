@@ -1,6 +1,15 @@
+/**
+ * Exemplo de uso da interface Runnable para criar threads em Java.
+ * <p>
+ * Runnable permite separar a tarefa da thread do controle da thread.
+ */
 package br.com.meslin;
 
-// Classe que implementa Runnable
+/**
+ * Classe que implementa Runnable.
+ * <p>
+ * Runnable permite separar a tarefa da thread do controle da thread.
+ */
 public class MinhaRunnable implements Runnable {
     private String nome;
 
@@ -9,8 +18,9 @@ public class MinhaRunnable implements Runnable {
         this.nome = nome;
     }
 
-    // Método run() que será executado quando a thread iniciar
-    @Override
+    /**
+     * Método run() que será executado quando a thread iniciar
+     */
     public void run() {
         for (int i = 0; i < 5; i++) {
             System.out.println(nome + " está executando: " + i);

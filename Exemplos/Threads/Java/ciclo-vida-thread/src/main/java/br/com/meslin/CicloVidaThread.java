@@ -1,5 +1,17 @@
+/**
+ * Exemplo do ciclo de vida de uma thread em Java.
+ * Mostra os estados: New, Runnable, Timed Waiting, Blocked, Waiting e Terminated.
+ * @author Meslin
+ * @version 1.0
+ */
 package br.com.meslin;
 
+/**
+ * Classe principal que demonstra o ciclo de vida de uma thread.
+ * Cria uma thread, inicia sua execução e gerencia seus estados.
+ * A thread executa uma tarefa que envolve espera temporizada, bloqueio e espera indefinida.
+ * A thread principal aguarda a conclusão da thread criada antes de terminar.
+ */
 public class CicloVidaThread {
     private final static Object lock = new Object();
 
