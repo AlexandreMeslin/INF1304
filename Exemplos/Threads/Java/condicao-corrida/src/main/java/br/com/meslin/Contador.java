@@ -1,13 +1,26 @@
+/**
+ * Exemplo de condição de corrida.
+ */
 package br.com.meslin;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Exemplo de condição de corrida.
+ * 
+ * Compile e execute:
+ * javac br/com/meslin/Contador.java
+ * java br.com.meslin.Contador
+ */
 public class Contador {
     private final Lock lock = new ReentrantLock();
     private int contador = 0;
     private final static int QTD = 100000000;
 
+    /**
+     * Sem sincronismo - condição de corrida!
+     */
     public void incrementar_sem_sinc() {
         contador++;
     }
@@ -15,6 +28,9 @@ public class Contador {
         contador--;
     }
 
+    /**
+     * Com sincronismo - sem condição de corrida!
+     */
     public synchronized void incrementar_com_sinc() {
         contador++;
     }
@@ -22,6 +38,9 @@ public class Contador {
         contador--;
     }
 
+    /**
+     * Com sincronismo usando Lock - sem condição de corrida!
+     */
     public void incrementar_com_sinc_v2() {
         synchronized(lock) {
             contador++;
