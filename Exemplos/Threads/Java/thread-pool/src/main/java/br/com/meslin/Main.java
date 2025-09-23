@@ -148,16 +148,17 @@ public class Main {
             System.out.println("Todas as tarefas foram enviadas.");
             // encerra o executor
             executor.shutdown();
+        
             // aguarda o término de todas as tarefas em busy-wait
+            /*
             while (!executor.isTerminated()) {
             }
-            /*
-            if(!executor.awaitTermination(60, java.util.concurrent.TimeUnit.SECONDS)) {
-                System.err.println("Ainda há tarefas em execução após 60 segundos.");
-                executor.shutdownNow(); // força o encerramento
-                System.err.println("O executor demorou demais para terminar. Forçando o encerramento.");
-            }
             */
+            while(!executor.awaitTermination(60, java.util.concurrent.TimeUnit.SECONDS)) {
+                System.err.println("Ainda há tarefas em execução após 60 segundos.");
+                //executor.shutdownNow(); // força o encerramento
+                //System.err.println("O executor demorou demais para terminar. Forçando o encerramento.");
+            }
         } catch (Exception e) {
             System.err.println("A espera foi interrompida.");
             e.printStackTrace();

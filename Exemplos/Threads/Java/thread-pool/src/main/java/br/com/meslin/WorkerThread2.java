@@ -19,7 +19,7 @@ import br.com.meslin.mylib.MyMath;
 public class WorkerThread2 implements Runnable {
     private static int index =0;
     private static final Lock lock = new ReentrantLock();
-    private int threadNumber;   // número da thread (para depuração)
+    //private int threadNumber;   // número da thread (para depuração)
     private List<Integer> lBase;
     private List<Integer> lExp;
     private List<Integer> lResp;
@@ -32,7 +32,7 @@ public class WorkerThread2 implements Runnable {
      * @param lResp lista de respostas
      */
     public WorkerThread2(int threadNumber, List<Integer> lBase, List<Integer> lExp, List<Integer> lResp) {
-        this.threadNumber = threadNumber;
+        //this.threadNumber = threadNumber;
         this.lBase = lBase;
         this.lExp = lExp;
         this.lResp = lResp;
@@ -47,7 +47,12 @@ public class WorkerThread2 implements Runnable {
         while(WorkerThread2.index < this.lBase.size()) {
             // obtém o próximo índice a ser calculado
             synchronized(WorkerThread2.lock) {
-                // verifica se ainda há índices a serem calculados
+                /*
+                 * Verifica se ainda há índices a serem calculados.
+                 * Se não houver, sai do loop e termina a thread.
+                 * Pode ser que outra thread tenha terminado o trabalho
+                 * enquanto essa thread estava esperando o lock
+                 */
                 if(WorkerThread2.index >= this.lBase.size()) break;
                 index = WorkerThread2.index;    // obtém o índice atual
                 WorkerThread2.index++;          // avança o índice para a próxima thread
@@ -74,6 +79,6 @@ public class WorkerThread2 implements Runnable {
                 }
             }
         }
-        System.err.println("Thread " + this.threadNumber + " terminou.");
+        //System.err.println("Thread " + this.threadNumber + " terminou.");
     }
 }
