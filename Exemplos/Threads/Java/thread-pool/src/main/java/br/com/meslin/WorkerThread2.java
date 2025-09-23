@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.math.BigInteger;
-import br.com.meslin.lib.MyMath;
+import br.com.meslin.mylib.MyMath;
 
 /**
  * WorkerThread2 implementa Runnable para ser usado em um Thread Pool

@@ -5,7 +5,7 @@
 package br.com.meslin;
 
 import java.util.List;
-import br.com.meslin.lib.MyMath;
+import br.com.meslin.mylib.MyMath;
 import java.math.BigInteger;
 
 /**

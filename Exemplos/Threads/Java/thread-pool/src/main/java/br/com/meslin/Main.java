@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import br.com.meslin.lib.MyMath;
+import br.com.meslin.mylib.MyMath;
 
 /**
  * Exemplo de uso de Thread Pool em Java
@@ -100,9 +100,9 @@ public class Main {
 
         // usando implementa a ponteciação vetorial usando pool de thread criado e gerenciado manualmente
         System.out.print(("\nUsando pool manual: "));
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         usingManualPool();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         printDuration(startTime, endTime);
         checkResult();
 
@@ -113,9 +113,9 @@ public class Main {
 
         // usando implementa a ponteciação vetorial usando método sequencial (sem threads)
         System.out.print(("\nUsando método sequencial: "));
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
         usingSequencial();
-        endTime = System.currentTimeMillis();
+        endTime = System.nanoTime();
         printDuration(startTime, endTime);
         checkResult();
 
@@ -136,6 +136,7 @@ public class Main {
                 // a tarefa somente vai ser executada quando houver uma thread disponível
                 executor.execute(worker);
             }
+            System.out.println("Todas as tarefas foram enviadas.");
             // encerra o executor
             executor.shutdown();
             // aguarda o término de todas as tarefas em busy-wait
