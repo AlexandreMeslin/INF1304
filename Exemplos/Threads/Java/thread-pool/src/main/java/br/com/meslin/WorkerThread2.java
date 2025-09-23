@@ -19,6 +19,7 @@ import br.com.meslin.mylib.MyMath;
 public class WorkerThread2 implements Runnable {
     private static int index =0;
     private static final Lock lock = new ReentrantLock();
+    private int threadNumber;   // número da thread (para depuração)
     private List<Integer> lBase;
     private List<Integer> lExp;
     private List<Integer> lResp;
@@ -30,7 +31,8 @@ public class WorkerThread2 implements Runnable {
      * @param lExp  lista de expoentes
      * @param lResp lista de respostas
      */
-    public WorkerThread2(List<Integer> lBase, List<Integer> lExp, List<Integer> lResp) {
+    public WorkerThread2(int threadNumber, List<Integer> lBase, List<Integer> lExp, List<Integer> lResp) {
+        this.threadNumber = threadNumber;
         this.lBase = lBase;
         this.lExp = lExp;
         this.lResp = lResp;
@@ -72,5 +74,6 @@ public class WorkerThread2 implements Runnable {
                 }
             }
         }
+        System.err.println("Thread " + this.threadNumber + " terminou.");
     }
 }

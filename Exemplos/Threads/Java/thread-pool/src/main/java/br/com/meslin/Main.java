@@ -12,10 +12,11 @@ import br.com.meslin.mylib.MyMath;
  * Exemplo de uso de Thread Pool em Java
  * 
  * Compilar com:
- * mvn compile
+ * $ mvn compile
  * 
  * Executar com:
- * java -cp target/classes br.com.meslin.Main
+ * $ java -cp target/classes br.com.meslin.Main [<tamanho do problema> [<tamanho do pool>]]
+ * $ java -jar target/thread-pool-1.0-SNAPSHOT.jar [<tamanho do problema> [<tamanho do pool>]]
  * 
  * @author meslin
  */
@@ -52,6 +53,9 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        long startTime; // tempo inicial em nanossegundos
+        long endTime;   // tempo final em nanossegundos
+
         Main.problemSize = (args.length > 0) ? Integer.parseInt(args[0]) : (int) DEFAULT_PROBLEM_SIZE;
         Main.poolSize = (args.length > 1) ? Integer.parseInt(args[1]) : DEFAULT_POOL_SIZE;
 
@@ -78,11 +82,24 @@ public class Main {
         }
         */
 
+        // usando implementa a ponteciação vetorial usando método sequencial (sem threads)
+        System.out.print(("\nUsando método sequencial: "));
+        startTime = System.nanoTime();
+        usingSequencial();
+        endTime = System.nanoTime();
+        printDuration(startTime, endTime);
+        checkResult();
+
+        // zera o vetor de respostas
+        for(int i=0; i<problemSize; i++) {
+            Main.lResp.set(i, 0);
+        }
+
         // usando implementa a ponteciação vetorial usando pool de thread com ExecutorService
         System.out.print(("\nUsando Executor: "));
-        long startTime = System.nanoTime();
+        startTime = System.nanoTime();
         usingExecutor();
-        long endTime = System.nanoTime();
+        endTime = System.nanoTime();
         printDuration(startTime, endTime);
         checkResult();
 
@@ -110,14 +127,6 @@ public class Main {
         for(int i=0; i<problemSize; i++) {
             Main.lResp.set(i, 0);
         }
-
-        // usando implementa a ponteciação vetorial usando método sequencial (sem threads)
-        System.out.print(("\nUsando método sequencial: "));
-        startTime = System.nanoTime();
-        usingSequencial();
-        endTime = System.nanoTime();
-        printDuration(startTime, endTime);
-        checkResult();
 
         System.out.println("\nFinished all threads");
     }
@@ -164,13 +173,13 @@ public class Main {
 
         // Criando e iniciando as threads
         for(int i = 0; i < poolSize; i++) {
-            WorkerThread2 worker = new WorkerThread2(lBase, lExp, lResp);
+            WorkerThread2 worker = new WorkerThread2(i, lBase, lExp, lResp);
             threads[i] = new Thread(worker);
             threads[i].start();
         }
 
         // Esperando que todas as threads terminem
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < poolSize; i++) {
             try {
                 threads[i].join();  // Espera a thread terminar
             } catch(InterruptedException e) {
@@ -206,9 +215,16 @@ public class Main {
         for(int i=0; i<problemSize; i++) {
             if(lResp.get(i) != BigInteger.valueOf(lBase.get(i)).pow((int)lExp.get(i)).longValue()) {
                 error = true;
-                System.out.println("Erro na posição " + i + " (" + lBase.get(i) + "^" + lExp.get(i) + " = " + lResp.get(i) + ")");
-                for(int j=0; j<10; j++) System.out.print(lResp.get(i) + " ");
-                System.out.println();
+                System.err.println("Erro na posição " + i + " (" + lBase.get(i) + "^" + lExp.get(i) + " = " + lResp.get(i) + ")");
+                for(int j=0; j<10; j++) {
+                    System.err.print(lResp.get(i) + " ");
+                    try {
+                        Thread.sleep(1000);
+                    } catch(InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.err.println();
                 break;
             } 
         }
