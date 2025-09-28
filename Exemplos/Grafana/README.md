@@ -27,28 +27,27 @@
 
 1. Configurar Grafana
 
-    1. Acesse o Grafana no navegador (pela URL exposta).
-    1. Vá em Connections → Data sources → Add data source.
-    1. Escolha Prometheus.
-    1. Configure a URL como:
+    1. Acessar o Grafana no navegador (pela URL exposta).
+    1. Ir em `Connections` → `Data sources` → `Add data source`.
+    1. Escolher Prometheus.
+    1. Configurar a URL como:
         ```url
         http://prometheus:9090
         ```
         > (Grafana e Prometheus estão na mesma rede do Docker Compose).
-    1. Clique em Save & Test.
+    1. Clicar em `Save & Test`.
 
 1. Criar um Dashboard Simples
-    - Vá em Dashboards → New → Add visualization.
-    - Selecione a fonte de dados Prometheus.
-    - Use a query:
+    - Ir em `Dashboards` → `New` → `Add visualization`.
+    - Selecionar a fonte de dados Prometheus.
+    - Usar a query:
     ```
     rate(prometheus_http_requests_total[1m])
     ```
     Isso mostra a taxa de requisições HTTP que o Prometheus está processando.
-    - Salve o painel → pronto 🎉
+    - Salvar o painel.
 
-1. Como usar em sala de aula
-    Você pode propor o seguinte exercício:
+1. Uso
     1. Subir Prometheus + Grafana no Codespace com docker-compose.
     1. Configurar o Prometheus como data source no Grafana.
     1. Criar um painel simples que mostre:
@@ -57,4 +56,4 @@
 
     Extensão do exercício:
     - Adicionar um container extra (ex.: um app em Python com /metrics usando Prometheus client).
-    - Fazer os alunos configurarem o Prometheus para coletar métricas desse app e exibi-las no Grafana.
+    - Configurar o Prometheus para coletar métricas desse app e exibir no Grafana.
