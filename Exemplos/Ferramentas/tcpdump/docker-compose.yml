@@ -1,0 +1,41 @@
+#version: '3.9'
+services:
+  alice:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    container_name: alice
+    command: sh -c "sleep infinity"
+    networks:
+      labnet:
+        ipv4_address: 172.28.0.2
+
+  bob:
+    build:
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    container_name: bob
+    command: sh -c "sleep infinity"
+    networks:
+      labnet:
+        ipv4_address: 172.28.0.3
+
+  sniffer:
+    build:
+      context: .
+      dockerfile: Dockerfile.sniffer
+    container_name: sniffer
+    command: tail -f /dev/null
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+#    networks:
+#      labnet:
+#        ipv4_address: 172.28.0.4
+    network_mode: host
+
+networks:
+  labnet:
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

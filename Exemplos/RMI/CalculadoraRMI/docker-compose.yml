@@ -1,0 +1,26 @@
+services:
+  rmi-server:
+    build: 
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: calculator-rmi-server:latest
+    container_name: rmi-server
+    ports:
+      - "1099:1099"
+    networks:
+      - calculadora-network
+
+  rmi-client:
+    build: 
+      context: .
+      dockerfile: ./client/Dockerfile
+    image: calculator-rmi-client:latest
+    container_name: rmi-client
+    depends_on:
+      - rmi-server
+    networks:
+      - calculadora-network
+
+networks:
+  calculadora-network:
+    driver: bridge

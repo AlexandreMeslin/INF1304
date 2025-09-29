@@ -12,9 +12,10 @@
     <packaging>jar</packaging>  <!-- usar pom no lugar de jar para não gerar o arquivo 1.0-SNAPSHOT.jar -->
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>

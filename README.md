@@ -9,7 +9,9 @@
 
 ![Java](https://img.shields.io/badge/language-Java-red.svg)
 ![C](https://img.shields.io/badge/language-C-blue.svg)
-![Bash](https://img.shields.io/badge/language-Bash-green.svg)
+![Shell](https://img.shields.io/badge/language-Shell-green.svg)
+![Python](https://img.shields.io/badge/language-Python-yellow.svg)
+![HTML](https://img.shields.io/badge/language-HTML-brown.svg)
 ![Top Language](https://img.shields.io/github/languages/top/AlexandreMeslin/INF1304)
 ![Languages Count](https://img.shields.io/github/languages/count/AlexandreMeslin/INF1304)
 
