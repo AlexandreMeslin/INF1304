@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files =  true;
+
+package br.com.meslin;
+
+message Conta {
+    int32 operando1 = 1;
+    string operacao = 2;
+    int32 operando2 = 3;
+}
+
+message ContaMultipla {
+    int32 operando1 = 1;
+    int32 operando2 = 3;
+}
+
+message Resultado {
+    int32 resultado = 1;
+}
+
+message ResultadoMultiplo {
+    int32 resultado = 1;
+    string operacao = 2;    
+}
+
+service CalcService {
+    rpc opera(Conta) returns (Resultado);
+    rpc operaVariasVezes(ContaMultipla) returns (stream ResultadoMultiplo);
+}

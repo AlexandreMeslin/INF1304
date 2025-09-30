@@ -1,0 +1,39 @@
+// From https://pamodaaw.medium.com/handson-introduction-to-grpc-with-java-1195870027fb
+
+syntax = "proto3";  //sintaxe desse arquivo (default é proto2)
+
+option java_multiple_files =  true; // informa ao compilador para gerar o código java em arquivos separados
+
+package org.sample.park;
+
+// formato da mensagem
+message Vehicle {
+  string vehicle_number = 1;    // posição 1
+  string vehicle_type = 2;      // posicao 2
+}
+
+// formato da mensagem
+message ParkRequest {
+  Vehicle vehicle = 1;
+}
+
+message ParkResponse {
+  string result = 1;
+}
+
+message ParkResponseManyTimes {
+  string result = 1;
+}
+
+// definição do serviço
+service CarParkService {
+
+  // definição do método
+  // Unary
+  rpc parkVehicle(ParkRequest) returns (ParkResponse);
+
+  // definição do método
+  // Streaming server
+  rpc parkVehicleManyTimes(ParkRequest) returns (stream ParkResponseManyTimes);
+
+}
