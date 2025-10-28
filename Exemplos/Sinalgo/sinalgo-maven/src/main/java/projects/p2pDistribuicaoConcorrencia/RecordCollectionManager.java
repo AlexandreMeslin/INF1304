@@ -20,6 +20,7 @@ public class RecordCollectionManager implements Cloneable {
     /**
      * Construtor da classe RecordCollectionManager.
      * <p>Inicializa uma nova instância do gerenciador de coleção de registros para um nó específico.</p>
+     * 
      * @param nodeId O ID do nó associado a esta coleção de registros.
      */
     public RecordCollectionManager(int nodeId) {
@@ -32,6 +33,7 @@ public class RecordCollectionManager implements Cloneable {
     /**
      * Adiciona um novo registro à coleção.
      * <p>Esta operação é realizada em tempo constante.</p>
+     * 
      * @param record O registro a ser adicionado.
      */
     public void add(RecordEntry record) {
@@ -40,6 +42,7 @@ public class RecordCollectionManager implements Cloneable {
 
     /**
      * Obtém a lista de registros armazenados.
+     * 
      * @return A lista de registros.
      */
     public List<RecordEntry> getRecordList() {
@@ -102,6 +105,7 @@ public class RecordCollectionManager implements Cloneable {
     /**
      * Cria e retorna uma cópia desta instância de RecordCollectionManager.
      * <p>Isso permite criar uma cópia independente do gerenciador de coleção de registros.</p>
+     * 
      * @return Uma cópia clonada desta instância.
      * @throws CloneNotSupportedException Se a clonagem não for suportada.
      */

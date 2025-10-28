@@ -11,6 +11,7 @@ public class RecordEntry {
 
     /**
      * Constructor
+     * 
      * @param recordNumber the record number
      * @param payload the payload
      */
