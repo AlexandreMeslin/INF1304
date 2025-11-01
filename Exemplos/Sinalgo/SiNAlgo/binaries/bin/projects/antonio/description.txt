@@ -1,0 +1,6 @@
+This project simulates an implementation of an Election algorithm known as
+the 'invitation' algorithm.
+
+The nodes moves around a 50x50m space randomly and wait for some fixed time in
+a position. They have a range of communication of 15m and form groups with all
+nodes within this range.

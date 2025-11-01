@@ -1,0 +1,8 @@
+FROM ubuntu:24.04
+
+# Instala tcpdump e ferramentas de rede básicas
+RUN apt-get update && \
+    apt-get install -y tcpdump iproute2 net-tools && \
+    rm -rf /var/lib/apt/lists/*
+
+CMD ["tail", "-f", "/dev/null"]

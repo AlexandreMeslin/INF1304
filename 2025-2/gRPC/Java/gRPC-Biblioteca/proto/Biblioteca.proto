@@ -1,0 +1,38 @@
+syntax = "proto3"
+
+option java_multiple_files = true
+
+package br.com.meslin
+
+// cadastra e recupera livro
+message Livro {
+    string titulo = 1;
+    string autorPrincipal = 3;
+    string autoresSecundarios = 4;
+    string isbn = 5;
+    int32 numeroPaginas = 6;
+    Data data = 7;
+    string localizacao = 8;
+    int 32 qtd = 9;
+    float peso = 10;
+}
+
+// busca por 1 livro
+message BuscaLivro {
+    string campoBusca = 1;  // campo para a Busca
+    string chaveBusca = 2;  // texto para a busca
+}
+
+message Mensagem {
+    string texto = 1;
+    bool sucesso = 2;
+}
+
+// ...
+
+service Biblioteca {
+    // compra 1 tipo de livro com vários exemplares
+    rpc comprarLivro(Livro) returns (Mensagem);
+    // busca 1 livro por titulo, isbn ou autor
+    rpc buscarLivro(BuscaLivro) returns (stream Livro);
+}

@@ -1,0 +1,9 @@
+FROM ubuntu:24.04
+
+# Instala utilitários básicos de rede
+RUN apt-get update && \
+    apt-get install -y iputils-ping iproute2 curl wget net-tools dnsutils && \
+    rm -rf /var/lib/apt/lists/*
+
+# Mantém o container ativo
+CMD ["sleep", "infinity"]

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sinalgo>
+	<ProjectSelector windowWidth="790" windowHeight="570" lastChosenProject="antonio" windowPosX="1398" windowPosY="198" isMaximized="false" selectedTab="1" />
+	<GUI windowWidth="1851" windowHeight="954" windowPosX="1360" windowPosY="24" isMaximized="true" ControlPanelExpandSimulation="true" ControlPanelShowFullViewPanel="false" ControlPanelShowTextPanel="true" ControlPanelShowProjectControl="true" RunOperationIsLimited="false" helpWindowWidth="480" helpWindowHeight="440" helpWindowPosX="200" helpWindowPosY="336" helpWindowIsMaximized="false" />
+	<RandomSeed seedFromPreviousRun="77654767234" />
+	<App lastSelectedFileDirectory="/home/meslin/Desktop/" checkForUpdatesAtStartup="true" updateCheckTimeStamp="1724012824308" runCmdLineArgs="-project v1 -rounds 100 -gen 8 v1:NodeV1 Grid2D -overwrite GeometricNodeCollection/rMax=8 UDG/rMax=8 RandomWayPoint/WaitingTime/min=8 RandomWayPoint/WaitingTime/max=8 logToTimeDirectory=false " />
+	<GenNodesDlg numNodes="10" />
+</sinalgo>
+

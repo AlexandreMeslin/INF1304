@@ -1,0 +1,9 @@
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+COPY target/grpc-book-client.jar /app/client.jar
+
+EXPOSE 50051
+
+CMD ["java", "-jar", "client.jar"]

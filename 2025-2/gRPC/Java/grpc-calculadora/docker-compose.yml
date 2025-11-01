@@ -1,0 +1,22 @@
+#version: '3'
+services:
+  grpc-server-service:
+    build: 
+      context: ./server
+    ports:
+      - "5003:5003"
+    networks:
+      - ext-network
+
+  grpc-client-service:
+    build:
+      context: ./client
+    depends_on:
+      - grpc-server-service
+    networks:
+      - ext-network
+
+networks:
+  ext-network:
+    driver: bridge
+    
