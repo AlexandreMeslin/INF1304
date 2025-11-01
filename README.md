@@ -25,3 +25,4 @@
 ![GitHub followers](https://img.shields.io/github/followers/AlexandreMeslin)
 ![GitHub User's stars](https://img.shields.io/github/stars/AlexandreMeslin)
 ![GitHub watchers](https://img.shields.io/github/watchers/AlexandreMeslin/INF1304)
+
