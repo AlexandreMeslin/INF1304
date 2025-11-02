@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files =  true;
+
+package br.com.meslin.inventory;
+
+message Book {
+  string isbn = 1;
+  string title = 2;
+  string author = 3;
+  int32 year = 4;
+  int32 stock_count = 5;
+}
+
+message BookRequest {
+  string isbn = 1;
+}
+
+message SearchRequest {
+  string author = 1;
+}
+
+message Status {
+  bool success = 1;
+  string message = 2;
+}
+
+service BookInventoryService {
+  // Unary: get a single book by ISBN
+  rpc getBook(BookRequest) returns (Book);
+
+  // Unary: add a new book
+  rpc addBook(Book) returns (Status);
+
+  // Server streaming: return all books by author
+  rpc searchBooks(SearchRequest) returns (stream Book);
+}

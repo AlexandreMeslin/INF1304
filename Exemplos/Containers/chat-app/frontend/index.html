@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script>
+        let wsProducer;
+        let wsConsumer;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pega o nome do host da página atual (ex: localhost, meuchat.com, 192.168.1.100)
+            const serverAddress = window.location.hostname;
+            const serverAddress8080 = serverAddress.replace("-8000", "-8080");
+            const serverAddress8081 = serverAddress.replace("-8000", "-8081");
+
+            console.log(`Tentando conexão com ${serverAddress8080} na porta 8080`);
+            console.log(`Tentando conexão com ${serverAddress8081} na porta 8081`);
+
+            // Constrói o URL do WebSocket dinamicamente
+            wsProducer = new WebSocket(`ws://${serverAddress8080}/chat/ws`);
+            wsConsumer = new WebSocket(`ws://${serverAddress8081}/chat/ws`);
+
+            wsProducer.onmessage = function(event) {
+                let chatbox = document.getElementById("chatboxproducer");
+                chatbox.innerHTML += event.data + "<br/>";
+            };
+
+            wsConsumer.onmessage = function(event) {
+                let chatbox = document.getElementById("chatboxconsumer");
+                chatbox.innerHTML += event.data + "<br/>";
+            };
+        });
+
+        function sendMessage() {
+            let message = document.getElementById("message").value;
+            wsProducer.send(message);
+        }
+    </script>
+</head>
+<body>
+    <h1>Chat</h1>
+    <div id="chatboxproducer"></div>
+    <input type="text" id="message" placeholder="Type a message..."/>
+    <button onclick="sendMessage()">Send</button>
+    <div id="chatboxconsumer"></div>
+</body>
+</html>

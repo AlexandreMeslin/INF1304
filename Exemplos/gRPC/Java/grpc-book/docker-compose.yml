@@ -1,0 +1,27 @@
+#version: "3.8"
+
+services:
+  inventory-server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.server
+    container_name: inventory-server
+    ports:
+      - "50051:50051"
+    networks:
+      - inventory-net
+
+  inventory-client:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.client
+    container_name: inventory-client
+    depends_on:
+      - inventory-server
+    networks:
+      - inventory-net
+
+networks:
+  inventory-net:
+    driver: bridge
+    name: inventory-net

@@ -1,4 +1,4 @@
-# INF1304
+# INF1304 (TL;DR)
 ## Distribuição e Concorrência
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
@@ -14,6 +14,17 @@
 ![HTML](https://img.shields.io/badge/language-HTML-brown.svg)
 ![Top Language](https://img.shields.io/github/languages/top/AlexandreMeslin/INF1304)
 ![Languages Count](https://img.shields.io/github/languages/count/AlexandreMeslin/INF1304)
+![GitHub commits since tagged version](https://img.shields.io/github/commits-since/AlexandreMeslin/INF1304/v2025.2)
+
+![Last Commit](https://img.shields.io/github/last-commit/AlexandreMeslin/INF1304)
+![Repo Size](https://img.shields.io/github/repo-size/AlexandreMeslin/INF1304)
+![Code Size](https://img.shields.io/github/languages/code-size/AlexandreMeslin/INF1304)
+
+![GitHub stars](https://img.shields.io/github/stars/AlexandreMeslin/INF1304?style=social)
+![GitHub forks](https://img.shields.io/github/forks/AlexandreMeslin/INF1304?style=social)
+![GitHub followers](https://img.shields.io/github/followers/AlexandreMeslin)
+![GitHub User's stars](https://img.shields.io/github/stars/AlexandreMeslin)
+![GitHub watchers](https://img.shields.io/github/watchers/AlexandreMeslin/INF1304)
 
 ![Last Commit](https://img.shields.io/github/last-commit/AlexandreMeslin/INF1304)
 ![Repo Size](https://img.shields.io/github/repo-size/AlexandreMeslin/INF1304)

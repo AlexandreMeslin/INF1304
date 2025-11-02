@@ -31,6 +31,20 @@ import sinalgo.nodes.messages.Message;
 import sinalgo.runtime.Global;
 import sinalgo.tools.Tools;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+public class MyNode extends Node {
+	private char[] animacao = {'|', '/', '-', '\\'};
+	private int posAnimacao = 0;
+	/** this node previous neighbors */
+	private Set<Node> previousNeighbors;
+	/** all node data (this and other nodes) */
+	private List<RecordCollectionManager> collectionManager;
+
+	/* (non-Javadoc)
+=======
+=======
+>>>>>>> main
 /**
  * @author Meslin
  * Implementation of a node for P2P data distribution with concurrency control
@@ -51,15 +65,31 @@ public class MyNode extends Node {
 	 * Overrides the init method from the Node class.
 	 * Sets up the previousNeighbors set and initializes the collectionManager list.
 	 * Starts a new thread for the RecordCreator task to generate records periodically.
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 	 * @see sinalgo.nodes.Node#init()
 	 */
 	@Override
 	public void init() {
 		CustomGlobal.consoleln(Global.currentTime + " nó " + this + " em init()");
 		this.previousNeighbors = new HashSet<>();
+<<<<<<< HEAD
+<<<<<<< HEAD
+		collectionManager = new ArrayList<>();
+        RecordCollectionManager collection = new RecordCollectionManager(ID);
+        collectionManager.add(collection);
+=======
 		this.collectionManager = new ArrayList<>();
         RecordCollectionManager collection = new RecordCollectionManager(ID);
         this.collectionManager.add(collection);
+>>>>>>> main
+=======
+		this.collectionManager = new ArrayList<>();
+        RecordCollectionManager collection = new RecordCollectionManager(ID);
+        this.collectionManager.add(collection);
+>>>>>>> main
 
 		RecordCreator recordCreatorTask = new RecordCreator();
 		Thread recordCreatorThread = new Thread(recordCreatorTask);
@@ -74,11 +104,21 @@ public class MyNode extends Node {
 	}
 
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	/* (non-Javadoc)
+=======
+=======
+>>>>>>> main
 	/**
 	 * Handles changes in the node's neighborhood.
 	 * Detects new neighbors and sends them an IdMessage containing this node's ID.
 	 * Updates the previousNeighbors set to reflect the current neighbors.
 	 * Overrides the neighborhoodChange method from the Node class.
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 	 * @see sinalgo.nodes.Node#neighborhoodChange()
 	 */
 	@Override
@@ -87,11 +127,20 @@ public class MyNode extends Node {
 		Set<Node> currentNeighbors = new HashSet<>();
 
 		// Itera sobre as arestas de saída para encontrar os vizinhos atuais
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
 		// outgoingConnections é uma lista de arestas conectadas a este nó
 		// Cada aresta tem um nó de destino (endNode)
 		// Adiciona cada nó de destino ao conjunto de vizinhos atuais
 		// Isso cria um conjunto dos nós atualmente conectados a este nó
 		// outgoingConnections é atualizado automaticamente pelo Sinalgo e herdado de Node
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		for (Edge edge : this.outgoingConnections) {
 			currentNeighbors.add(edge.endNode);
 		}
@@ -99,6 +148,15 @@ public class MyNode extends Node {
 		// Detecta novos vizinhos
 		for (Node neighbor : currentNeighbors) {
 			if (!previousNeighbors.contains(neighbor)) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+				// Envia mensagem se apresentado para o novo vizinho
+				synchronized(collectionManager) {
+					collectionManagerCloned = new ArrayList<>(collectionManager);
+				}
+=======
+=======
+>>>>>>> main
 				// Se chegamos aqui, é porque 'neighbor' é um novo vizinho
 				// Envia mensagem se apresentando para o novo vizinho
 				synchronized(collectionManager) {
@@ -108,6 +166,10 @@ public class MyNode extends Node {
 				// Para cada coleção de registros, envia uma mensagem de ID
 				// Isso informa ao novo vizinho sobre os IDs dos nós cujos registros este nó possui
 				// O novo vizinho pode então solicitar registros com base nesses IDs
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 				for(RecordCollectionManager collection : collectionManagerCloned) {
 					IdMessage idMessage = new IdMessage(collection.getNodeId());
 					this.send(idMessage, neighbor);
@@ -125,12 +187,22 @@ public class MyNode extends Node {
 	// entre o preStep() e o handlerMessages()
 	
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	/* (non-Javadoc)
+=======
+=======
+>>>>>>> main
 	/**
 	 * Handles incoming messages for the node.
 	 * Processes each message in the inbox using the MessageProcessor class.
 	 * Overrides the handleMessages method from the Node class.
 	 * 
 	 * @param inbox The inbox containing incoming messages.
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 	 * @see sinalgo.nodes.Node#handleMessages(sinalgo.nodes.messages.Inbox)
 	 */
 	@Override
@@ -146,6 +218,13 @@ public class MyNode extends Node {
 	/* (non-Javadoc)
 	 * @see sinalgo.nodes.Node#postStep()
 	 */					
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
+=======
+>>>>>>> main
 	@Override
 	public void postStep() {
 	}
@@ -157,6 +236,12 @@ public class MyNode extends Node {
 	public void checkRequirements() throws WrongConfigurationException {
 	}
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	/* (non-Javadoc)
+=======
+=======
+>>>>>>> main
 
 	/**
 	 * Draws the node with animation and highlights.
@@ -166,6 +251,10 @@ public class MyNode extends Node {
 	 * @param graphics The graphics context to draw on.
 	 * @param pt The position transformation for drawing.
 	 * @param highlight Whether the node should be highlighted.
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 	 * @see sinalgo.nodes.Node#draw(java.awt.Graphics, sinalgo.gui.transformation.PositionTransformation, boolean)
 	 */
 	public void draw(Graphics graphics, PositionTransformation pt, boolean highlight) {
@@ -178,12 +267,30 @@ public class MyNode extends Node {
         }	
 
 		//this.setColor(new Color((float) 0.5, (float) 0.5, (float) 1.0));
+<<<<<<< HEAD
+<<<<<<< HEAD
+        String text = this.ID + Character.toString(this.animacao[this.posAnimacao]) + collectionManager.get(0).getLastSavedRecord();
+		this.posAnimacao = (this.posAnimacao+1) % this.animacao.length;
+=======
         String text = this.ID + Character.toString(this.animacao[this.posAnimacao/100]) + collectionManager.get(0).getLastSavedRecord();
 		this.posAnimacao = (this.posAnimacao+1) % (this.animacao.length * 100);
+>>>>>>> main
+=======
+        String text = this.ID + Character.toString(this.animacao[this.posAnimacao/100]) + collectionManager.get(0).getLastSavedRecord();
+		this.posAnimacao = (this.posAnimacao+1) % (this.animacao.length * 100);
+>>>>>>> main
         // draw the node as a circle with the text inside
         super.drawNodeAsDiskWithText(graphics, pt, highlight, text, 3, Color.YELLOW);
 	}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	private class MessageProcessor {
+		private Map<Class<? extends Message>, BiConsumer<? extends Node, ? extends Message>> handlers = new HashMap<>();
+
+=======
+=======
+>>>>>>> main
 
 	/**
 	 * Processes incoming messages and delegates handling based on message type.
@@ -199,6 +306,10 @@ public class MyNode extends Node {
 		 * Sets up handlers for different message types.
 		 * @author Meslin
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		public MessageProcessor() {
 			handlers.put(IdMessage.class,               (sender, msg) -> handleIdMessage              ((Node)sender, (IdMessage)msg));
 			handlers.put(LastSavedRecordMessage.class,  (sender, msg) -> handleLastSavedRecordMessage ((Node)sender, (LastSavedRecordMessage) msg));
@@ -206,6 +317,11 @@ public class MyNode extends Node {
 			handlers.put(RecordListMessage.class,       (sender, msg) -> handleRecordListMessage      ((Node)sender, (RecordListMessage) msg));
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
 
 		/**
 		 * Processes a message by delegating to the appropriate handler based on message type.
@@ -213,6 +329,10 @@ public class MyNode extends Node {
 		 * @param sender
 		 * @param msg
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		public void processMessage(Node sender, Message msg) {
 			BiConsumer<Node, Message> handler = (BiConsumer<Node, Message>) handlers.get(msg.getClass());
 			if (handler != null) {
@@ -222,11 +342,23 @@ public class MyNode extends Node {
 			}
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+		/**
+		 * Update new neighbor about already saved messages
+		 * Send request for next record
+=======
+=======
+>>>>>>> main
 
 		/**
 		 * Update new neighbor about already saved messages
 		 * Send request for next record
 		 * 
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		 * @param msg ID message
 		 */
 		private void handleIdMessage(Node sender, IdMessage msg) {
@@ -239,8 +371,16 @@ public class MyNode extends Node {
 
 		/**
 		 * Delete messages that were reported to be already at the stationary server
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 		 * 
 		 * @param sender The node that sent the message
+>>>>>>> main
+=======
+		 * 
+		 * @param sender The node that sent the message
+>>>>>>> main
 		 * @param msg last saved record number message (inclusive)
 		 */
 		private void handleLastSavedRecordMessage(Node sender, LastSavedRecordMessage msg) {
@@ -267,11 +407,22 @@ public class MyNode extends Node {
 			}
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+		/**
+		 * Send all new records to the new neighbor
+=======
+=======
+>>>>>>> main
 
 		/**
 		 * Send all new records to the new neighbor
 		 * 
 		 * @param sender The node that sent the message
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		 * @param msg next record number message
 		 */
 		private void handleNextRecordNumberMessage(Node sender, NextRecordNumberMessage msg) {
@@ -306,6 +457,11 @@ public class MyNode extends Node {
 			}
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
 
 		/**
 		 * Update local record list with received records
@@ -313,6 +469,10 @@ public class MyNode extends Node {
 		 * @param sender The node that sent the message
 		 * @param msg record list message
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		private void handleRecordListMessage(Node sender, RecordListMessage msg) {
 			boolean found = false;
 			RecordCollectionManager collectionManager = null;
@@ -332,6 +492,13 @@ public class MyNode extends Node {
 				collectionManager.getRecordList().addAll(msg.getRecordList());
 				collectionManager.setNextRecord(msg.getRecordList().get(msg.getRecordList().size()-1).getRecordNumber());
 			}
+<<<<<<< HEAD
+<<<<<<< HEAD
+	}
+
+=======
+=======
+>>>>>>> main
 		}
 
 		/**
@@ -340,6 +507,10 @@ public class MyNode extends Node {
 		 * @param sender The node that sent the message
 		 * @param nodeId The node ID for which to send the last saved record number
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		protected void sendLastSavedRecordNumber(Node sender, int nodeId) {
 			int lastSavedRecord = -1;
 			boolean found = false;
@@ -357,12 +528,21 @@ public class MyNode extends Node {
 			MyNode.this.send(message, sender);
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
 		/**
 		 * Send next record number to the requester
 		 * 
 		 * @param sender The node that sent the message
 		 * @param nodeId The node ID for which to send the next record number
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		protected void sendNextRecordNumber(Node sender, int nodeId) {
 			int nextRecordNumber = -1;
 			boolean found = false;
@@ -382,6 +562,22 @@ public class MyNode extends Node {
 
 		/**
 		 * Handle (unlikely) unknown message
+<<<<<<< HEAD
+<<<<<<< HEAD
+		 * @param msg
+		 */
+		private void handleUnknownMessageType(Message msg) {
+			// Tratar mensagens desconhecidas
+			// TODO
+		}
+	}
+
+	private class RecordCreator implements Runnable {
+		private int counter;
+	
+=======
+=======
+>>>>>>> main
 		 * 
 		 * @param msg The unknown message
 		 */
@@ -406,10 +602,19 @@ public class MyNode extends Node {
 		 * Constructor that initializes the record counter.
 		 * Sets the initial counter value to zero.
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		public RecordCreator() {
 			this.counter = 0;
 		}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> main
 		/**
 		 * Runs the record creation loop.
 		 * Continuously creates new records and adds them to the collection manager.
@@ -418,6 +623,10 @@ public class MyNode extends Node {
 		 * 
 		 * @see java.lang.Runnable#run()
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
+>>>>>>> main
 		@Override
 		public void run() {
 			try {

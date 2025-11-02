@@ -1,0 +1,9 @@
+FROM openjdk:11-jre-slim
+
+WORKDIR /app
+
+COPY target/grpc-book-server.jar /app/server.jar
+
+EXPOSE 50051
+
+CMD ["java", "-jar", "server.jar"]
