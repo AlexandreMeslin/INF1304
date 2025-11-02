@@ -22,20 +22,29 @@ import sinalgo.nodes.messages.Message;
 import sinalgo.runtime.Global;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 /**
  * Implementation of a stationary node that handles messages and manages record collections.
  * Extends the Node class from the Sinalgo framework.
  * 
  * @author Meslin
  */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 public class MyStationaryNode extends Node {
     /** all node data (this and other nodes) */
     private List<RecordCollectionManager> collectionManager;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 	/**
 	 * Initializes the stationary node.
 	 * Sets up the collection manager for handling records.
@@ -43,6 +52,9 @@ public class MyStationaryNode extends Node {
 	 * 
 	 * @see sinalgo.nodes.Node#init()
 	 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     @Override
     public void init() {
@@ -53,7 +65,10 @@ public class MyStationaryNode extends Node {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 	/**
 	 * Handles incoming messages for the stationary node.
 	 * Processes each message using the MessageProcessor class.
@@ -61,6 +76,9 @@ public class MyStationaryNode extends Node {
 	 * 
 	 * @param inbox The inbox containing incoming messages.
 	 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     @Override
     public void handleMessages(Inbox inbox) {
@@ -73,7 +91,10 @@ public class MyStationaryNode extends Node {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 	/**
 	 * Draws the stationary node on the graphical interface.
 	 * Sets the color and appearance of the node based on its state.
@@ -83,6 +104,9 @@ public class MyStationaryNode extends Node {
 	 * @param pt The position transformation for coordinate conversion.
 	 * @param highlight Indicates whether the node should be highlighted.
 	 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     @Override
     public void draw(Graphics graphics, PositionTransformation pt, boolean highlight) {
@@ -95,7 +119,13 @@ public class MyStationaryNode extends Node {
         }	
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		this.setColor(Color.GREEN);
+=======
+		// set the node color to green
+		this.setColor(Color.GREEN);
+		// prepare the text to be drawn inside the node with its ID
+>>>>>>> main
 =======
 		// set the node color to green
 		this.setColor(Color.GREEN);
@@ -123,10 +153,13 @@ public class MyStationaryNode extends Node {
     public void neighborhoodChange() {    }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private class MessageProcessor {
 		private Map<Class<? extends Message>, BiConsumer<? extends Node, ? extends Message>> handlers = new HashMap<>();
 
 =======
+=======
+>>>>>>> main
 	/**
 	 * Class responsible for processing different types of messages received by the stationary node.
 	 * Uses a map to associate message types with their corresponding handler methods.
@@ -146,6 +179,9 @@ public class MyStationaryNode extends Node {
 		 * @see p2pDistribuicaoConcorrencia.nodes.messages.NextRecordNumberMessage
 		 * @see p2pDistribuicaoConcorrencia.nodes.messages.RecordListMessage
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 		public MessageProcessor() {
 			handlers.put(IdMessage.class,               (sender, msg) -> handleIdMessage              ((Node)sender, (IdMessage)msg));
@@ -155,7 +191,10 @@ public class MyStationaryNode extends Node {
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 		/**
 		 * Processes a received message by invoking the appropriate handler based on the message type.
 		 * If no handler is found for the message type, it calls the handleUnknownMessageType method.
@@ -163,6 +202,9 @@ public class MyStationaryNode extends Node {
 		 * @param sender who sent the message
 		 * @param msg the message
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 		public void processMessage(Node sender, Message msg) {
 			BiConsumer<Node, Message> handler = (BiConsumer<Node, Message>) handlers.get(msg.getClass());
@@ -177,6 +219,11 @@ public class MyStationaryNode extends Node {
 		 * Update new neighbor about already saved messages
 		 * Send request for next record
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		 * 
+		 * @param sender who sent the message
+>>>>>>> main
 =======
 		 * 
 		 * @param sender who sent the message
@@ -194,6 +241,11 @@ public class MyStationaryNode extends Node {
 		/**
 		 * Delete messages that were reported to be already at the stationary server
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		 * 
+		 * @param sender who sent the message
+>>>>>>> main
 =======
 		 * 
 		 * @param sender who sent the message
@@ -207,6 +259,11 @@ public class MyStationaryNode extends Node {
 		/**
 		 * Send all new records to the new neighbor
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+		 * 
+		 * @param sender who sent the message
+>>>>>>> main
 =======
 		 * 
 		 * @param sender who sent the message
@@ -219,7 +276,12 @@ public class MyStationaryNode extends Node {
 
 		/**
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 * Receive a message record list 
+=======
+		 * Receive a message record list
+		 * 
+>>>>>>> main
 =======
 		 * Receive a message record list
 		 * 
@@ -256,19 +318,29 @@ public class MyStationaryNode extends Node {
 	    }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 		/**
 		 * Send last saved record number to the sender node
 		 * 
 		 * @param sender who sent the message
 		 * @param nodeId the node ID
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 		protected void sendLastSavedRecordNumber(Node sender, int nodeId) {
 			int lastSavedRecord = -1;
 			boolean found = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			// search for the record collection of the given node ID
+>>>>>>> main
 =======
 			// search for the record collection of the given node ID
 >>>>>>> main
@@ -286,18 +358,30 @@ public class MyStationaryNode extends Node {
 		}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 		/**
 		 * Send next record number to the sender node
 		 * @param sender who sent the message
 		 * @param nodeId the node ID
 		 */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 		protected void sendNextRecordNumber(Node sender, int nodeId) {
 			int nextRecordNumber = -1;
 			boolean found = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+			// search for the record collection of the given node ID
+			// synchronized to avoid concurrent modification exceptions
+			// when another thread is adding new record collections
+>>>>>>> main
 =======
 			// search for the record collection of the given node ID
 			// synchronized to avoid concurrent modification exceptions
@@ -313,7 +397,13 @@ public class MyStationaryNode extends Node {
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
+=======
+			// send the next record number message back to the requester
+			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
+			// send the message
+>>>>>>> main
 =======
 			// send the next record number message back to the requester
 			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
@@ -325,18 +415,24 @@ public class MyStationaryNode extends Node {
 		/**
 		 * Handle (unlikely) unknown message
 <<<<<<< HEAD
+<<<<<<< HEAD
 		 * @param msg
 		 */
 		private void handleUnknownMessageType(Message msg) {
 			// Tratar mensagens desconhecidas
 			// TODO
 =======
+=======
+>>>>>>> main
 		 * 
 		 * @param msg The unknown message
 		 */
 		private void handleUnknownMessageType(Message msg) {
 			// Tratar mensagens desconhecidas
 			// TODO: Implementar tratamento para mensagens desconhecidas
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
 		}
 	}

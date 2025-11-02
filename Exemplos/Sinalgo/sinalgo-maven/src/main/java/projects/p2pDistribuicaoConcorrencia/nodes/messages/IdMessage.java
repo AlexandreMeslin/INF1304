@@ -5,6 +5,11 @@ import sinalgo.nodes.messages.Message;
 /**
  * Message to comunicate node ID
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+ * 
+ * @author meslin
+>>>>>>> main
 =======
  * 
  * @author meslin
@@ -16,6 +21,10 @@ public class IdMessage extends Message {
     /**
      * Constructor
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+     * 
+>>>>>>> main
 =======
      * 
 >>>>>>> main
@@ -26,22 +35,34 @@ public class IdMessage extends Message {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
     /**
      * Get node ID
      * @return node ID
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     public int getNodeId() {
         return this.nodeId;
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
     /**
      * Clone the message
      * @return cloned message
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     @Override
     public Message clone() {

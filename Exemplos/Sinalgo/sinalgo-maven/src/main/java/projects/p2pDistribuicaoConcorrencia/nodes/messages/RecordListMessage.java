@@ -6,11 +6,14 @@ import projects.p2pDistribuicaoConcorrencia.RecordEntry;
 import sinalgo.nodes.messages.Message;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class RecordListMessage extends Message {
     private final int nodeId;
     private final List<RecordEntry> recordList;
 
 =======
+=======
+>>>>>>> main
 /**
  * Message to send a list of records
  * 
@@ -28,6 +31,9 @@ public class RecordListMessage extends Message {
      * @param nodeId node ID
      * @param recordList list of records
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     public RecordListMessage(int nodeId, List<RecordEntry> recordList) {
         this.nodeId = nodeId;
@@ -35,36 +41,54 @@ public class RecordListMessage extends Message {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
     /**
      * Get record list
      * 
      * @return list of records
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     public List<RecordEntry> getRecordList() {
         return this.recordList;
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
     /**
      * Get node ID
      * 
      * @return node ID
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     public int getNodeId() {
         return this.nodeId;
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
     /**
      * Clone the message
      * 
      * @return cloned message
      */
+<<<<<<< HEAD
+>>>>>>> main
+=======
 >>>>>>> main
     @Override
     public Message clone() {
