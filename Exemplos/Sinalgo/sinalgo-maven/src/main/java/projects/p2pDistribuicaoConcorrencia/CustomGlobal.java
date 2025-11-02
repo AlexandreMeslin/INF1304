@@ -91,8 +91,13 @@ public class CustomGlobal extends AbstractCustomGlobal {
     }
 
   /**
+<<<<<<< HEAD
    * Envia mensagem para a console somente em modo gráfico<br>
    * muda de linha após enviar a mensagem
+=======
+   * Envia mensagem para a console somente em modo gráfico.<br>
+   * <p>Muda de linha após enviar a mensagem
+>>>>>>> main
    * @param mensagem
    */
   static public void consoleln(String mensagem) {
@@ -101,8 +106,13 @@ public class CustomGlobal extends AbstractCustomGlobal {
   }
   
   /**
+<<<<<<< HEAD
    * Envia mensagem para a console somente em modo gráfico<br>
    * não muda de linha após enviar a mensagem
+=======
+   * Envia mensagem para a console somente em modo gráfico.<br>
+   * <p>Não muda de linha após enviar a mensagem
+>>>>>>> main
    * @param mensagem
    */
   static public void console(String mensagem) {

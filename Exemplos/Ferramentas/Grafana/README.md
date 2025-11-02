@@ -29,6 +29,7 @@
 
     1. Acessar o Grafana no navegador (pela URL exposta).
     1. Ir em `Connections` → `Data sources` → `Add data source`.
+<<<<<<< HEAD
 
         ![`Connections` → `Data sources` → `Add data source`](img/Grafana-Connections-DataSource.png)
     1. Escolher Prometheus.
@@ -36,11 +37,16 @@
         ![Escolher Prometheus](img/Grafana-DataSource-Prometheus.png)
     1. Configurar a URL como:
         > (mesmo usando o Codespace e redirecionando, o acesso é realizado dentro do Codespace, logo o endereço é esse mesmo mostrado a seguir)
+=======
+    1. Escolher Prometheus.
+    1. Configurar a URL como:
+>>>>>>> main
         ```url
         http://prometheus:9090
         ```
         > (Grafana e Prometheus estão na mesma rede do Docker Compose).
     1. Clicar em `Save & Test`.
+<<<<<<< HEAD
 
         ![`Save & Test`](img/Grafana-SaveTest.png)
 
@@ -48,6 +54,11 @@
     - Ir em `Dashboards` → `New` → `Add visualization`.
     > Se não houver nenhum `Dashboard` criado anteriomente, clicar no botão `+ Create dashboard`.    
     > Clicar no botão `+ Add visualization`.
+=======
+
+1. Criar um Dashboard Simples
+    - Ir em `Dashboards` → `New` → `Add visualization`.
+>>>>>>> main
     - Selecionar a fonte de dados Prometheus.
     - Usar a query:
     ```
@@ -55,8 +66,11 @@
     ```
     Isso mostra a taxa de requisições HTTP que o Prometheus está processando.
     - Salvar o painel.
+<<<<<<< HEAD
     
         ![Salvar o painel](img/Grafana-discard-save-dashboard.png)
+=======
+>>>>>>> main
 
 1. Uso
     1. Subir Prometheus + Grafana no Codespace com docker-compose.

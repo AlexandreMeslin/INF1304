@@ -25,3 +25,10 @@
 ![GitHub followers](https://img.shields.io/github/followers/AlexandreMeslin)
 ![GitHub User's stars](https://img.shields.io/github/stars/AlexandreMeslin)
 ![GitHub watchers](https://img.shields.io/github/watchers/AlexandreMeslin/INF1304)
+
+![Last Commit](https://img.shields.io/github/last-commit/AlexandreMeslin/INF1304)
+![Repo Size](https://img.shields.io/github/repo-size/AlexandreMeslin/INF1304)
+![Code Size](https://img.shields.io/github/languages/code-size/AlexandreMeslin/INF1304)
+
+![GitHub stars](https://img.shields.io/github/stars/AlexandreMeslin/INF1304?style=social)
+![GitHub forks](https://img.shields.io/github/forks/AlexandreMeslin/INF1304?style=social)
