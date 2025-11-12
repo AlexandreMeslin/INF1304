@@ -21,41 +21,10 @@ import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 import sinalgo.runtime.Global;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-/**
- * Implementation of a stationary node that handles messages and manages record collections.
- * Extends the Node class from the Sinalgo framework.
- * 
- * @author Meslin
- */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 public class MyStationaryNode extends Node {
     /** all node data (this and other nodes) */
     private List<RecordCollectionManager> collectionManager;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-	/**
-	 * Initializes the stationary node.
-	 * Sets up the collection manager for handling records.
-	 * Overrides the init method from the Node class.
-	 * 
-	 * @see sinalgo.nodes.Node#init()
-	 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
     @Override
     public void init() {
         CustomGlobal.consoleln(Global.currentTime + " stationary " + this + " em init()");
@@ -64,22 +33,6 @@ public class MyStationaryNode extends Node {
         collectionManager.add(collection);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-	/**
-	 * Handles incoming messages for the stationary node.
-	 * Processes each message using the MessageProcessor class.
-	 * Overrides the handleMessages method from the Node class.
-	 * 
-	 * @param inbox The inbox containing incoming messages.
-	 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
     @Override
     public void handleMessages(Inbox inbox) {
         while(inbox.hasNext()) {
@@ -90,24 +43,6 @@ public class MyStationaryNode extends Node {
         }        
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-	/**
-	 * Draws the stationary node on the graphical interface.
-	 * Sets the color and appearance of the node based on its state.
-	 * Overrides the draw method from the Node class.
-	 * 
-	 * @param graphics The graphics context for drawing.
-	 * @param pt The position transformation for coordinate conversion.
-	 * @param highlight Indicates whether the node should be highlighted.
-	 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
     @Override
     public void draw(Graphics graphics, PositionTransformation pt, boolean highlight) {
 		int nodeSize = 10;
@@ -118,19 +53,7 @@ public class MyStationaryNode extends Node {
             graphics.setColor(Color.BLUE);
         }	
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 		this.setColor(Color.GREEN);
-=======
-		// set the node color to green
-		this.setColor(Color.GREEN);
-		// prepare the text to be drawn inside the node with its ID
->>>>>>> main
-=======
-		// set the node color to green
-		this.setColor(Color.GREEN);
-		// prepare the text to be drawn inside the node with its ID
->>>>>>> main
         String text = Integer.toString(this.ID);
         // draw the node as a circle with the text inside
         super.drawNodeAsDiskWithText(graphics, pt, highlight, text, 3, Color.YELLOW);
@@ -152,37 +75,9 @@ public class MyStationaryNode extends Node {
     @Override
     public void neighborhoodChange() {    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 	private class MessageProcessor {
 		private Map<Class<? extends Message>, BiConsumer<? extends Node, ? extends Message>> handlers = new HashMap<>();
 
-=======
-=======
->>>>>>> main
-	/**
-	 * Class responsible for processing different types of messages received by the stationary node.
-	 * Uses a map to associate message types with their corresponding handler methods.
-	 * Implements message handling for ID messages, last saved record messages, next record number messages, and record list messages.
-	 * 
-	 * @author Meslin
-	 */
-	private class MessageProcessor {
-		private Map<Class<? extends Message>, BiConsumer<? extends Node, ? extends Message>> handlers = new HashMap<>();
-
-		/**
-		 * Constructor that initializes the message handlers.
-		 * Maps each message type to its corresponding handler method.
-		 * 
-		 * @see p2pDistribuicaoConcorrencia.nodes.messages.IdMessage
-		 * @see p2pDistribuicaoConcorrencia.nodes.messages.LastSavedRecordMessage
-		 * @see p2pDistribuicaoConcorrencia.nodes.messages.NextRecordNumberMessage
-		 * @see p2pDistribuicaoConcorrencia.nodes.messages.RecordListMessage
-		 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 		public MessageProcessor() {
 			handlers.put(IdMessage.class,               (sender, msg) -> handleIdMessage              ((Node)sender, (IdMessage)msg));
 			handlers.put(LastSavedRecordMessage.class,  (sender, msg) -> handleLastSavedRecordMessage ((Node)sender, (LastSavedRecordMessage) msg));
@@ -190,22 +85,6 @@ public class MyStationaryNode extends Node {
 			handlers.put(RecordListMessage.class,       (sender, msg) -> handleRecordListMessage      ((Node)sender, (RecordListMessage) msg));
 		}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-		/**
-		 * Processes a received message by invoking the appropriate handler based on the message type.
-		 * If no handler is found for the message type, it calls the handleUnknownMessageType method.
-		 * 
-		 * @param sender who sent the message
-		 * @param msg the message
-		 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 		public void processMessage(Node sender, Message msg) {
 			BiConsumer<Node, Message> handler = (BiConsumer<Node, Message>) handlers.get(msg.getClass());
 			if (handler != null) {
@@ -218,16 +97,6 @@ public class MyStationaryNode extends Node {
 		/**
 		 * Update new neighbor about already saved messages
 		 * Send request for next record
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
 		 * @param msg ID message
 		 */
 		private void handleIdMessage(Node sender, IdMessage msg) {
@@ -240,16 +109,6 @@ public class MyStationaryNode extends Node {
 
 		/**
 		 * Delete messages that were reported to be already at the stationary server
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
 		 * @param msg last saved record number message (inclusive)
 		 */
 		private void handleLastSavedRecordMessage(Node sender, LastSavedRecordMessage msg) {
@@ -258,16 +117,6 @@ public class MyStationaryNode extends Node {
 
 		/**
 		 * Send all new records to the new neighbor
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
-=======
-		 * 
-		 * @param sender who sent the message
->>>>>>> main
 		 * @param msg next record number message
 		 */
 		private void handleNextRecordNumberMessage(Node sender, NextRecordNumberMessage msg) {
@@ -275,17 +124,7 @@ public class MyStationaryNode extends Node {
 		}
 
 		/**
-<<<<<<< HEAD
-<<<<<<< HEAD
 		 * Receive a message record list 
-=======
-		 * Receive a message record list
-		 * 
->>>>>>> main
-=======
-		 * Receive a message record list
-		 * 
->>>>>>> main
 		 * @param sender who sent the message
 		 * @param msg the message
 		 */
@@ -317,33 +156,10 @@ public class MyStationaryNode extends Node {
 			}
 	    }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-		/**
-		 * Send last saved record number to the sender node
-		 * 
-		 * @param sender who sent the message
-		 * @param nodeId the node ID
-		 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 		protected void sendLastSavedRecordNumber(Node sender, int nodeId) {
 			int lastSavedRecord = -1;
 			boolean found = false;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-			// search for the record collection of the given node ID
->>>>>>> main
-=======
-			// search for the record collection of the given node ID
->>>>>>> main
 			synchronized(MyStationaryNode.this.collectionManager) {
 				for(RecordCollectionManager colletion : MyStationaryNode.this.collectionManager) {
 					if(colletion.getNodeId() == nodeId) {
@@ -357,36 +173,10 @@ public class MyStationaryNode extends Node {
 			MyStationaryNode.this.send(message, sender);
 		}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> main
-		/**
-		 * Send next record number to the sender node
-		 * @param sender who sent the message
-		 * @param nodeId the node ID
-		 */
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 		protected void sendNextRecordNumber(Node sender, int nodeId) {
 			int nextRecordNumber = -1;
 			boolean found = false;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-			// search for the record collection of the given node ID
-			// synchronized to avoid concurrent modification exceptions
-			// when another thread is adding new record collections
->>>>>>> main
-=======
-			// search for the record collection of the given node ID
-			// synchronized to avoid concurrent modification exceptions
-			// when another thread is adding new record collections
->>>>>>> main
 			synchronized(MyStationaryNode.this.collectionManager) {
 				for(RecordCollectionManager colletion : MyStationaryNode.this.collectionManager) {
 					if(colletion.getNodeId() == nodeId) {
@@ -396,44 +186,17 @@ public class MyStationaryNode extends Node {
 					}
 				}
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
 			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
-=======
-			// send the next record number message back to the requester
-			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
-			// send the message
->>>>>>> main
-=======
-			// send the next record number message back to the requester
-			NextRecordNumberMessage message = new NextRecordNumberMessage(nodeId, nextRecordNumber);
-			// send the message
->>>>>>> main
 			MyStationaryNode.this.send(message, sender);
 		}
 
 		/**
 		 * Handle (unlikely) unknown message
-<<<<<<< HEAD
-<<<<<<< HEAD
 		 * @param msg
 		 */
 		private void handleUnknownMessageType(Message msg) {
 			// Tratar mensagens desconhecidas
 			// TODO
-=======
-=======
->>>>>>> main
-		 * 
-		 * @param msg The unknown message
-		 */
-		private void handleUnknownMessageType(Message msg) {
-			// Tratar mensagens desconhecidas
-			// TODO: Implementar tratamento para mensagens desconhecidas
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> main
 		}
 	}
 }
