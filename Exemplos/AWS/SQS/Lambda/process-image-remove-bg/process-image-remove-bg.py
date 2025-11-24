@@ -24,11 +24,33 @@ Para criar um layer com as dependências:
 - Em Custom layers, selecione o layer que você acabou de criar. 
 - Selecione a versão do layer em Version, se for o caso, e clique no botão Add:
 '''
+import time
 import json
 import boto3
-from rembg import remove
 
 s3 = boto3.client("s3")
+bucket_out = 'image-app-down-2025-11-23'
+
+def robust_get_object(Bucket, Key, retries=5, delay=0.5):
+    '''
+    Tenta baixar um objeto do S3, se não conseguir, tenta novamente.
+    Necessário porque o S3 pode enviar o evento antes do objeto estar realmente disponível.
+    '''
+    for i in range(retries):
+        try:
+            return s3.get_object(Bucket=Bucket, Key=Key)
+        except s3.exceptions.NoSuchKey:
+            if i == retries - 1:
+                raise
+            time.sleep(delay * (2 ** i))  # exponencial
+
+def remove(arquivo):
+    '''
+    Remove o fundo da imagem usando a biblioteca rembg.
+    '''
+    #from rembg import remove as rembg_remove
+    #arquivo = rembg_remove(arquivo)
+    return arquivo
 
 def lambda_handler(event, context):
     """
@@ -36,12 +58,9 @@ def lambda_handler(event, context):
     A mensagem SQS contém o evento original do S3 (via SNS).
     """
 
-    print("EVENT:", json.dumps(event))
-
     # 1. Extrai a mensagem do SQS
     for record in event["Records"]:
         sqs_body = record["body"]
-        print("SQS body:", sqs_body)
 
         # Se vier via SNS → SQS → Lambda
         try:
@@ -51,8 +70,6 @@ def lambda_handler(event, context):
             # Se vier direto S3 → SQS (mais raro, mas suportado)
             s3_event = json.loads(sqs_body)
 
-        print("S3 event:", json.dumps(s3_event))
-
         # 2. Extrai bucket e objeto do evento S3
         s3_info = s3_event["Records"][0]["s3"]
         bucket = s3_info["bucket"]["name"]
@@ -61,7 +78,7 @@ def lambda_handler(event, context):
         print(f"Processando imagem {bucket}/{key}")
 
         # 3. Baixa o arquivo do S3
-        original_image = s3.get_object(Bucket=bucket, Key=key)["Body"].read()
+        original_image = robust_get_object(Bucket=bucket, Key=key)["Body"].read()
 
         # 4. Remove o fundo
         try:
@@ -75,15 +92,15 @@ def lambda_handler(event, context):
 
         # 6. Envia de volta ao S3
         s3.put_object(
-            Bucket=bucket,
+            Bucket=bucket_out,
             Key=out_key,
             Body=processed_image,
             ContentType="image/png"
         )
-
-        print(f"Imagem salva em s3://{bucket}/{out_key}")
+        print(f"Imagem salva em s3://{bucket_out}/{out_key}")
 
     return {
         "statusCode": 200,
         "body": json.dumps("Processamento concluído")
     }
+# Fim do arquivo process-image-remove-bg.py

@@ -8,7 +8,12 @@ import json
 LAMBDA_URL = "https://7ncp6kr4xkjvikahclcltyhw4i0zolqr.lambda-url.us-east-1.on.aws/"
 
 def choose_and_upload():
-    filepath = filedialog.askopenfilename(filetypes=[("Images","*.png *.jpg *.jpeg *.gif")])
+    filepath = filedialog.askopenfilename(
+        filetypes=[("Images","*.png *.jpg *.jpeg *.gif")],
+        title="Escolha uma imagem para enviar",
+        initialdir="imagens",
+        multiple=False
+    )
     if not filepath:
         return
 

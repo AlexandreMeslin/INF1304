@@ -11,14 +11,13 @@ from datetime import datetime
 s3 = boto3.client("s3")
 BUCKET_NAME = "image-app-2025-11-23"
 
-
 def lambda_handler(event, context):
     # Suporte para chamadas via API Gateway (REST ou HTTP)
     if isinstance(event.get("body"), str):
         try:
             body = json.loads(event["body"])
         except Exception:
-            return response(400, {"error": "body não é JSON válido"})
+            return response(400, {"error": "body nao e JSON valido"})
     else:
         body = event
 
@@ -26,8 +25,7 @@ def lambda_handler(event, context):
     filedata = body.get("filedata")
 
     if not filename or not filedata:
-        return response(400, {"error": "Parâmetros obrigatórios: filename, filedata (base64)"})
-
+        return response(400, {"error": "Parametros obrigatorios: filename, filedata (base64)"})
 
     try:
         # Decodifica a imagem base64
@@ -67,3 +65,4 @@ def response(status, body_dict):
         },
         "body": json.dumps(body_dict)
     }
+# Fim do arquivo imageUploadService.py
