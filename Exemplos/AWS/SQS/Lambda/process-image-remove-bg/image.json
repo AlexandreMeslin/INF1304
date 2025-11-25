@@ -1,0 +1,63 @@
+{
+    "Records": [
+        {
+            "messageId": "0749f5e9-5e6b-4075-a593-5cc71aa8c853",
+            "receiptHandle": "AQEB1McJ1xA5LLxnWyO+YvAnKVZOiUfnue1S/pUmL8tBZIN6gbGEJHpgwCvWo/INzTDJQdm+7IHpprNVnST4vP4iKbDwiqJtFIBHdoBVDYOwfv7JqGO17YtWnmWPK1qA/LrzjtAP5tZYZTgWmcg3RA2UUHnNMGRaV6s0LVxsFjGFFcixT0abdBtZEL4i/kvy5UbW9T7UWxdaFfSxevZE8kLFCU6416wpBYVsLkelR/TBDb+H7FMS+drzQOQe82vuIwVeRrXggOb1pNUpJvvTg/z1a4XMHjNqJU2XybM5fAQDG76V5+ypE8Q4Jj9UNulzZRn22qZNdtdAvkH+k2BDwPBS9ZNWPVFA6sTZ/6yRfYUwcKNawNKkTuCehSYoy21ezUhn",
+            "body": {   // String
+                "Type" : "Notification",  
+                "MessageId" : "8c541a0d-b0a7-5e59-b624-7badae557743",  
+                "TopicArn" : "arn:aws:sns:us-east-1:645066073980:uploadnotification",  
+                "Subject" : "Amazon S3 Notification",  
+                "Message" : {
+                    "Records": [
+                        {
+                            "eventVersion": "2.1",
+                            "eventSource":"aws:s3",
+                            "awsRegion":"us-east-1",
+                            "eventTime":"2025-11-25T21:16:33.093Z",
+                            "eventName":"ObjectCreated:Put",
+                            "userIdentity": {"principalId":"AWS:AROAZMMHPE56M6CJ6VSOZ:imageUploadService"},
+                            "requestParameters": {"sourceIPAddress":"100.31.4.108" },
+                            "responseElements": {
+                                "x-amz-request-id":"Z0YAHF5FYQNM7RH3",
+                                "x-amz-id-2":"pKqSU+HUNgMXvElp19ITJRM8j2n84TsmOm5cEVgK01BnY0kTDbM60XwdpXCrQqiCzRVzLVKcY/5IXs2Bj8kKRKwYdnEgyYby"
+                            },
+                            "s3": {
+                                "s3SchemaVersion":"1.0",
+                                "configurationId":"SendtoSns",
+                                "bucket": {
+                                    "name":"image-app-2025-11-23",
+                                    "ownerIdentity": {"principalId":"ARISAWMV1TN2B"},
+                                    "arn":"arn:aws:s3:::image-app-2025-11-23"
+                                },
+                                "object": {
+                                    "key":"uploads/20251125-211632-fork.png",
+                                    "size": 44926,
+                                    "eTag":"16724edfb52d32cb3bc631ac1fa02588",
+                                    "sequencer":"0069261CB104E72A1F"
+                                }
+                            }
+                        }
+                    ]
+                },  
+                "Timestamp" : "2025-11-25T21:16:34.064Z",  
+                "SignatureVersion" : "1",  
+                "Signature" : "GkEyqPTyKm+RXLWJGyxerg0ASRnPuF3Qy1pGLhJ3KpprcBsF04klvrMBh6wWK1wG1zUTLGW5Rvm+aigP21W/C8yqruEIFthW1tcaO4fLEvc1rKL1Y91BsCqgiNDHmaR9lrIHW1xHg/S6YUtwK6BF1rLMfgdXc62jg9W4d/l4lLrJfagjNlfNW/8HS4qEB1qKddp9PIO6/kBXSJvyjsrM6iphQc33H4I773gxbUqKkhd9uuVlXd+KdIydtZGjMIyZihNae7h5p0GZAdoxW5RYTnJevGXvyxrWFDz32dUDfN7v6L3zFs4qVnwG/Jb1Y1NsMxjtXQY5XLWTNpUt7MLA1w==",
+                "SigningCertURL" : "https://sns.us-east-1.amazonaws.com/SimpleNotificationService-6209c161c6221fdf56ec1eb5c821d112.pem",  
+                "UnsubscribeURL" : "https://sns.us-east-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:us-east-1:645066073980:uploadnotification:d8b2ce26-ebea-4a46-a4d8-f57634c0cfe8"
+            }, 
+            "attributes": {
+                "ApproximateReceiveCount": "1", 
+                "AWSTraceHeader": "Root=1-69261caf-18a20274107b36c97bf518d0;Parent=1c565ef9fbc9c6fe;Sampled=0;Lineage=1:af72f463:0", 
+                "SentTimestamp": "1764105394115", 
+                "SenderId": "AIDAIT2UOQQY3AUEKVGXU", 
+                "ApproximateFirstReceiveTimestamp": "1764105394126"
+            }, 
+            "messageAttributes": {}, 
+            "md5OfBody": "6b37219122544e91cced5346d8355580", 
+            "eventSource": "aws:sqs", 
+            "eventSourceARN": "arn:aws:sqs:us-east-1:645066073980:ImageApp", 
+            "awsRegion": "us-east-1"
+        }
+    ]
+}

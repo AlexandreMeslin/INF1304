@@ -48,6 +48,12 @@ def remove(arquivo):
     '''
     Remove o fundo da imagem usando a biblioteca rembg.
     '''
+    '''
+    As camadas firacam muito grandes para o upload via console.
+    Então, este código está comentado. 
+    Use um layer com a biblioteca rembg instalada.
+    TODO: implementar usando container?
+    '''
     #from rembg import remove as rembg_remove
     #arquivo = rembg_remove(arquivo)
     return arquivo
@@ -59,7 +65,78 @@ def lambda_handler(event, context):
     """
 
     # 1. Extrai a mensagem do SQS
+    '''
+    Formato do evento SQS:
+    {
+      "Records": [
+        {
+          "messageId": "0749f5e9-5e6b-4075-a593-5cc71aa8c853",
+          "receiptHandle": "AQEB1McJ1xA5LLxnWyO+YvAnKVZOiUfnue1S/pUmL8tBZIN6gbGEJHpgwCvWo/INzTDJQdm+7IHpprNVnST4vP4iKbDwiqJtFIBHdoBVDYOwfv7JqGO17YtWnmWPK1qA/LrzjtAP5tZYZTgWmcg3RA2UUHnNMGRaV6s0LVxsFjGFFcixT0abdBtZEL4i/kvy5UbW9T7UWxdaFfSxevZE8kLFCU6416wpBYVsLkelR/TBDb+H7FMS+drzQOQe82vuIwVeRrXggOb1pNUpJvvTg/z1a4XMHjNqJU2XybM5fAQDG76V5+ypE8Q4Jj9UNulzZRn22qZNdtdAvkH+k2BDwPBS9ZNWPVFA6sTZ/6yRfYUwcKNawNKkTuCehSYoy21ezUhn",
+          "body": "String",
+          "attributes": {
+            "ApproximateReceiveCount": "1",
+            "AWSTraceHeader": "Root=1-64f5c8e2-5e6b4075a5935cc71aa8c853;Parent=0749f5e95e6b4075a5935cc71aa8c853;Sampled=1",
+            "SentTimestamp": "1698234567890",
+            "SenderId": "AROAJEXAMPLE:my-sqs-sns-lambda",
+            "ApproximateFirstReceiveTimestamp": "1698234567895"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "e99a18c428cb38d5f260853678922e03",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-east-1:123456789012:my-queue",
+          "awsRegion": "us-east-1"
+        }
+      ]
+    }
+    '''
     for record in event["Records"]:
+        '''
+        Formato do body da mensagem SQS (string JSON):
+        {
+            "Type" : "Notification",
+            "MessageId" : "8c541a0d-b0a7-5e59-b624-7badae557743",
+            "TopicArn" : "arn:aws:sns:us-east-1:645066073980:uploadnotification",
+            "Subject" : "Amazon S3 Notification",
+            "Message" : "{
+                "Records": [
+                    {
+                        "eventVersion": "2.1",
+                        "eventSource": "aws:s3",
+                        "awsRegion": "us-east-1",
+                        "eventTime": "2023-10-25T12:34:56.000Z",
+                        "eventName": "ObjectCreated:Put",
+                        "userIdentity": {
+                            "principalId": "AWS:EXAMPLE"
+                        },
+                        "requestParameters": {
+                            "sourceIPAddress": "100.31.4.108"
+                        },
+                        "responseElements": {
+                            "x-amz-request-id": "EXAMPLE123456789",
+                            "x-amz-id-2": "EXAMPLE123/5678abcdefghijklambda1234567890EXAMPLE="
+                        },
+                        "s3": {
+                            "s3SchemaVersion": "1.0",
+                            "configurationId": "exampleConfigId",
+                            "bucket": {
+                                "name": "my-upload-bucket",
+                                "ownerIdentity": {
+                                    "principalId": "EXAMPLE"
+                                },
+                                "arn": "arn:aws:s3:::my-upload-bucket"
+                            },
+                            "object": {
+                                "key": "path/to/uploaded-image.jpg",
+                                "size": 1024,
+                                "eTag": "0123456789abcdef0123456789abcdef",
+                                "sequencer": "0A1B23C4D5E6F7890"
+                            }
+                        }
+                    }
+                ]
+            }"
+        }           
+        '''
         sqs_body = record["body"]
 
         # Se vier via SNS → SQS → Lambda
