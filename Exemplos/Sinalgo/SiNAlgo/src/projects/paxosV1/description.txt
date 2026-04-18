@@ -1,0 +1,7 @@
+Versão 1 do Segundo  Trabalho de Algoritmos Distribuídos
+
+Para os nós aparecerem, use a opção Simulation --> Generate Nodes (ou F3)
+
+Os nós são identificados a partir de 1
+
+Implementa o algoritmo de Paxos
