@@ -1,0 +1,6 @@
+Exemplo de P2P para o curso de Distribuição e Concorrência.
+
+O Sinalgo foi portado de Gradle para Maven.
+Para implementar a portabilidade, foi necessário modificar a constante sinalgo.configuration.Configuration.binaryDir.
+O local do arquivo Config.xml também foi modificado.
+Agora deve ficar dentro do diretório com o nome do projeto dentro de resources/projects.
