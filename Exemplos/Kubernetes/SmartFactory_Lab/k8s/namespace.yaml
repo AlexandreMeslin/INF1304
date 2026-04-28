@@ -1,0 +1,10 @@
+# This file defines a Kubernetes Namespace called "factoryflow". 
+# Namespaces are used to organize and manage resources within a Kubernetes cluster. 
+# By creating a namespace, you can isolate resources 
+# and manage them more effectively.
+# Aplicar:
+# kubectl apply -f k8s/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: factoryflow
