@@ -36,7 +36,6 @@ spec:
               name: rabbitmq-secret
               key: username
         - name: RABBITMQ_DEFAULT_PASS
-        
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secret
