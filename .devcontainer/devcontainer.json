@@ -1,0 +1,7 @@
+{
+  "name": "Meu Codespace",
+  "forwardPorts": [3000, 3001, 8000, 8080],
+
+  // comando que roda toda vez que o codespace sobe
+  "postStartCommand": "bash .devcontainer/set-public-ports.sh"
+}
