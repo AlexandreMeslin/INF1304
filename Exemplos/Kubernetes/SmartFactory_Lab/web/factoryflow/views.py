@@ -1,9 +1,11 @@
+from django.http import JsonResponse
 import os
 import pika
-from django.http import HttpResponse
 from datetime import datetime
+import uuid
 
 def home(request):
+    request_id = str(uuid.uuid4())
     msg = f"Job criado em {datetime.now()}"
 
     try:
@@ -16,15 +18,26 @@ def home(request):
 
         channel = connection.channel()
         channel.queue_declare(queue='fila_producao')
-        channel.basic_publish(exchange='', routing_key='fila_producao', body=msg)
+        channel.basic_publish(
+            exchange='', 
+            routing_key='fila_producao', 
+            body=msg
+        )
         connection.close()
 
-        return HttpResponse(f"""
-        <h1>FactoryFlow Django</h1>
-        <p>Job enviado!</p>
-        <p>Pod: {os.uname().nodename}</p>
-        <p>{msg}</p>
-        """)
-
+        json_response = {
+            "status": "ok",
+            "message": msg,
+            "pod": os.uname().nodename,
+            "request_id": request_id,
+            "timestamp": datetime.now().isoformat()
+        }
+        status_code = 200
     except Exception as e:
-        return HttpResponse(f"<h1>Erro</h1><pre>{e}</pre>")
+        json_response = {
+            "status": "error",
+            "error": str(e)
+        }
+        status_code = 500
+
+    return JsonResponse(json_response, status=status_code)
