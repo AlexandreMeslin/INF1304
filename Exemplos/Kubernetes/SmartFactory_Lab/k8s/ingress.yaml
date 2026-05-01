@@ -5,8 +5,7 @@ metadata:
   namespace: factoryflow
 spec:
   rules:
-  - host: factoryflow.local
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix

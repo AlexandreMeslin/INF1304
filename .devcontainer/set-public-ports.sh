@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Lista de portas que você quer sempre públicas
-PORTS=(3000 3001 8000 8080)
+PORTS=(3000 3001 8000 8080 15672)
 
 for PORT in "${PORTS[@]}"; do
     echo "Tornando porta $PORT pública..."

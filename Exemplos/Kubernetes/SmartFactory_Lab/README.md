@@ -60,4 +60,56 @@ Desenvolvimento
   - GitHub Copilot Chat
 - Pacotes Linux
   - iputils-ping
-  
+
+## Iniciando...
+
+No diretório `SmartFactory_Lab`:
+
+```bash
+$ cd web
+$ source venv/bin/activate
+$ cd ..
+$ minikube status
+$ minikube start
+$ kubectl apply -f k8s/namespace.yaml
+$ kubectl apply -f k8s/mysql.yaml
+$ kubectl apply -f k8s/rabbitmq.yaml
+$ kubectl get pods -n factoryflow
+$ kubectl get service -n factoryflow
+$ kubectl run debug --rm -it --image=busybox -n factoryflow -- sh
+# nslookup rabbitmq-service
+# nslookup mysql-service​
+# exit
+$ eval $(minikube docker-env)​
+$ docker build -t factoryflow-web:v1 ./web
+$ docker images
+$ kubectl apply -f k8s/web.yaml
+$ kubectl get pods -n factoryflow
+$ minikube addons enable ingress
+$ kubectl get pods -n ingress-nginx
+$ kubectl apply -f k8s/ingress.yaml
+$ sudo sh -c "echo '`minikube ip` factoryflow.local' >> /etc/hosts"
+$ for i in {1..10}; do curl http://factoryflow.local; echo; done
+```
+
+Comandos importantes
+
+```bash
+$ minikube start​
+$ minikube status​
+$ kubectl get nodes​
+$ kubectl version​
+$ kubectl create deployment <nome do deploy> --image=<nome da imagem>
+$ kubectl get deployment​
+$ kubectl get pod​
+$ kubectl get replicaset​
+$ kubectl edit deployment <nome do deploy>
+$ kubectl describe pod <nome do pod>
+$ kubectl logs <nome do pod>
+$ kubectl exec -it <nome do pod> -- /bin/bash​
+$ kubectl apply -f <nome do arquivo>.yaml ​
+$ kubectl delete -f <nome do arquivo>.yaml ​
+$ kubectl delete service <nome do serviço>
+$ kubectl delete deployment <nome do serviço>
+$ kubectl rollout restart deployment <nome do deploy> -n <namespace>
+```
