@@ -67,7 +67,9 @@ No diretório `SmartFactory_Lab`:
 
 ```bash
 $ cd web
+$ python -m venv venv
 $ source venv/bin/activate
+$ pip install -r requirements.txt
 $ cd ..
 $ minikube status
 $ minikube start
@@ -92,7 +94,21 @@ $ sudo sh -c "echo '`minikube ip` factoryflow.local' >> /etc/hosts"
 $ for i in {1..10}; do curl http://factoryflow.local; echo; done
 ```
 
-Comandos importantes
+**Em caso de problemas**
+
+- Refazer e reiniciar o serviço web:
+```bash
+$ eval $(minikube docker-env)​
+$ docker build -t factoryflow-web:v1 ./web
+$ kubectl rollout restart deployment web-deployment -n factoryflow
+```
+
+- Depurar problemas usando log:
+```bash
+kubectl logs -n factoryflow -l app=web
+```
+
+**Comandos importantes**
 
 ```bash
 $ minikube start​
@@ -100,7 +116,7 @@ $ minikube status​
 $ kubectl get nodes​
 $ kubectl version​
 $ kubectl create deployment <nome do deploy> --image=<nome da imagem>
-$ kubectl get deployment​
+$ kubectl get deployment [-n <namespace>]
 $ kubectl get pod​
 $ kubectl get replicaset​
 $ kubectl edit deployment <nome do deploy>

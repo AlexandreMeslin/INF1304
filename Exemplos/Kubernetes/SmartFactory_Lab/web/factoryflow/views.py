@@ -4,7 +4,14 @@ import pika
 from datetime import datetime
 import uuid
 
+# --------------------------------------------------------------------------
+# Endpoint principal para criar um job de produção
+# --------------------------------------------------------------------------
 def home(request):
+    '''
+    Endpoint principal para criar um job de produção.
+    Retorna um JSON com status "ok", mensagem de confirmação e informações do pod.
+    '''
     request_id = str(uuid.uuid4())
     msg = f"Job criado em {datetime.now()}"
 
@@ -41,3 +48,19 @@ def home(request):
         status_code = 500
 
     return JsonResponse(json_response, status=status_code)
+
+
+# --------------------------------------------------------------------------
+# Endpoint de health check
+# --------------------------------------------------------------------------
+def health(request):
+    '''
+    Endpoint de health check para monitoramento do serviço.
+    Retorna um JSON com status "ok", nome do pod e timestamp atual.
+    '''
+    json_response = {
+        "status": "ok",
+        "pod": os.uname().nodename,
+        "timestamp": datetime.now().isoformat()
+    }
+    return JsonResponse(json_response)

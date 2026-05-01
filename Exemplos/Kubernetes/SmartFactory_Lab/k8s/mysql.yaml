@@ -28,6 +28,13 @@ spec:
         image: mysql:latest
         ports:
         - containerPort: 3306
+        resources:    # adcionado para evitar: One or more containers do not have resources - this can cause noisy neighbor issues
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:

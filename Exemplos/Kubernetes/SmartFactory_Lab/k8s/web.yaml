@@ -1,33 +1,33 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: Deployment          # tipo de recurso: Deployment
 metadata:
-  name: web-deployment
-  namespace: factoryflow
+  name: web-deployment    # nome do deployment
+  namespace: factoryflow  # namespace onde o deployment será criado
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: web
+      app: web  # rótulo para identificar os pods deste deployment
   template:
     metadata:
       labels:
-        app: web
+        app: web  # rótulo para identificar os pods deste deployment
     spec:
       containers:
-      - name: web
-        image: factoryflow-web:v1
+      - name: web   # nome do container
+        image: factoryflow-web:v1 # imagem do container (deve ser construída e disponível localmente) 
         imagePullPolicy: Never
         ports:
         - containerPort: 8000
 ---
 apiVersion: v1
-kind: Service
+kind: Service             # tipo de recurso: Service
 metadata:
-  name: web-service
-  namespace: factoryflow
+  name: web-service       # nome do serviço
+  namespace: factoryflow  # namespace onde o serviço será criado
 spec:
   selector:
-    app: web
+    app: web              # seleciona os pods com o rótulo "app: web" para direcionar o tráfego
   ports:
   - port: 8000
     targetPort: 8000

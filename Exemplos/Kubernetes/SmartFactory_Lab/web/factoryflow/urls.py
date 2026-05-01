@@ -17,9 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from factoryflow.views import home
+from factoryflow import views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('', home),
+    path("admin/", admin.site.urls),    # administração do site
+    path('', views.home),     # teste de balanceamento de carga
+    path('api/v1/health/', views.health),     # retorna o beacon de keepalive
 ]
