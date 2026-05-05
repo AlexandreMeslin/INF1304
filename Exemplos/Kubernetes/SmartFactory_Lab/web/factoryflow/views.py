@@ -64,3 +64,33 @@ def health(request):
         "timestamp": datetime.now().isoformat()
     }
     return JsonResponse(json_response)
+
+# --------------------------------------------------------------------------
+# Endpoint de readiness check
+# --------------------------------------------------------------------------
+def readiness(request):
+    '''
+    Endpoint de readiness check para verificar se o container está pronto para receber tráfego.
+    Retorna um JSON com status "ready" e timestamp atual.
+    '''
+    json_response = {
+        "status": "ready",
+        'pod': os.uname().nodename,
+        "timestamp": datetime.now().isoformat()
+    }
+    return JsonResponse(json_response)
+
+# --------------------------------------------------------------------------
+# Endpoint de liveness check
+# --------------------------------------------------------------------------
+def liveness(request):
+    '''
+    Endpoint de liveness check para verificar se o container está vivo.
+    Retorna um JSON com status "alive" e timestamp atual.
+    '''
+    json_response = {
+        "status": "alive",
+        'pod': os.uname().nodename,
+        "timestamp": datetime.now().isoformat()
+    }
+    return JsonResponse(json_response)

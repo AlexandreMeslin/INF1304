@@ -5,6 +5,11 @@ metadata:
   namespace: factoryflow  # namespace onde o deployment será criado
 spec:
   replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   selector:
     matchLabels:
       app: web  # rótulo para identificar os pods deste deployment
@@ -19,6 +24,18 @@ spec:
         imagePullPolicy: Never
         ports:
         - containerPort: 8000
+        readinessProbe:  # configuração da readiness probe
+          httpGet:
+            path: /api/v1/readiness  # endpoint para verificar a saúde do container
+            port: 8000
+          initialDelaySeconds: 5  # tempo de espera antes de iniciar as verificações
+          periodSeconds: 5       # intervalo entre as verificações
+        livenessProbe:   # configuração da liveness probe
+          httpGet:
+            path: /api/v1/liveness  # endpoint para verificar se o container está vivo
+            port: 8000
+          initialDelaySeconds: 10 # tempo de espera antes de iniciar as verificações
+          periodSeconds: 10      # intervalo entre as verificações
 ---
 apiVersion: v1
 kind: Service             # tipo de recurso: Service
