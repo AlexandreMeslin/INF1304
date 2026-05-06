@@ -37,13 +37,13 @@ def home(request):
             "message": msg,
             "pod": os.uname().nodename,
             "request_id": request_id,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
         }
         status_code = 200
     except Exception as e:
         json_response = {
             "status": "error",
-            "error": str(e)
+            "error": str(e),
         }
         status_code = 500
 
@@ -61,7 +61,8 @@ def health(request):
     json_response = {
         "status": "ok",
         "pod": os.uname().nodename,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
+        'version': '2',
     }
     return JsonResponse(json_response)
 
@@ -76,7 +77,7 @@ def readiness(request):
     json_response = {
         "status": "ready",
         'pod': os.uname().nodename,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
     }
     return JsonResponse(json_response)
 
@@ -91,6 +92,6 @@ def liveness(request):
     json_response = {
         "status": "alive",
         'pod': os.uname().nodename,
-        "timestamp": datetime.now().isoformat()
+        "timestamp": datetime.now().isoformat(),
     }
     return JsonResponse(json_response)

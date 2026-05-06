@@ -31,6 +31,13 @@ spec:
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management
+        resources:    # adcionado para evitar: One or more containers do not have resources - this can cause noisy neighbor issues
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
         ports:
         - containerPort: 5672
         - containerPort: 15672

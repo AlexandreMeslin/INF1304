@@ -20,8 +20,15 @@ spec:
     spec:
       containers:
       - name: web   # nome do container
-        image: factoryflow-web:v1 # imagem do container (deve ser construída e disponível localmente) 
+        image: factoryflow-web:v2 # imagem do container (deve ser construída e disponível localmente) 
         imagePullPolicy: Never
+        resources:    # adcionado para evitar: One or more containers do not have resources - this can cause noisy neighbor issues
+          requests:
+            memory: "256Mi"
+            cpu: "500m"
+          limits:
+            memory: "512Mi"
+            cpu: "1"
         ports:
         - containerPort: 8000
         readinessProbe:  # configuração da readiness probe
