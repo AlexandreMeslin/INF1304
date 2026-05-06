@@ -1,4 +1,5 @@
 # INF1304 (TL;DR)
+
 ## Distribuição e Concorrência
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
