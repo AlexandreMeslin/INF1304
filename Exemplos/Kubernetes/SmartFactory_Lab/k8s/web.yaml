@@ -24,11 +24,11 @@ spec:
         imagePullPolicy: Never
         resources:    # adcionado para evitar: One or more containers do not have resources - this can cause noisy neighbor issues
           requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
             memory: "256Mi"
             cpu: "500m"
-          limits:
-            memory: "512Mi"
-            cpu: "1"
         ports:
         - containerPort: 8000
         readinessProbe:  # configuração da readiness probe
@@ -53,5 +53,5 @@ spec:
   selector:
     app: web              # seleciona os pods com o rótulo "app: web" para direcionar o tráfego
   ports:
-  - port: 8000
-    targetPort: 8000
+  - port: 80            # porta exposta pelo serviço para receber o tráfego
+    targetPort: 8000    # porta no container para onde o tráfego será direcionado

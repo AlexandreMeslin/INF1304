@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/v1/health/', views.health),     # retorna o beacon de keepalive
     path('api/v1/readiness/', views.readiness), # retorna o status de readiness do container
     path('api/v1/liveness/', views.liveness),   # retorna o status de liveness do container
+    path('api/v1/cpu/', views.cpu),   # endpoint para consumir CPU do container
 ]
