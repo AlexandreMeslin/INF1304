@@ -39,7 +39,7 @@ Uma empresa fictícia que possui:
 ## Tecnologias utilizadas
 
 Aplicações:
-- Node.js (Java, no futuro): frontend
+- Django (Java, no futuro): frontend
 - MySQL: banco de dados
 - Keycloak: autenticação
 - MinIO: servidor de arquivos
