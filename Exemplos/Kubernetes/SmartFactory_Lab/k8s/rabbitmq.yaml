@@ -59,6 +59,9 @@ metadata:
   name: rabbitmq-service
   namespace: factoryflow
 spec:
+  type: ClusterIP   # (default) ClusterIP: Exposes the service on a cluster-internal IP. Choosing this value makes the service only reachable from within the cluster.
+  #type: LoadBalancer  # LoadBalancer: Exposes the service externally using a cloud provider's load balancer. The external IP address will be provisioned by the cloud provider.
+  #type: NodePort  # NodePort: Exposes the service on each Node's IP at a static port (the NodePort). A ClusterIP service, to which the NodePort service routes, is automatically created.
   selector:
     app: rabbitmq
   ports:

@@ -8,8 +8,8 @@ spec:
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+      maxUnavailable: 1 # quantidade máxima de pods que podem estar indisponíveis durante a atualização
+      maxSurge: 1       # quantidade máxima de pods que podem ser criados além do número desejado durante a atualização
   selector:
     matchLabels:
       app: web  # rótulo para identificar os pods deste deployment
