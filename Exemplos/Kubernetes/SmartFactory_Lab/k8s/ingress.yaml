@@ -1,16 +1,16 @@
 apiVersion: networking.k8s.io/v1
-kind: Ingress
+kind: Ingress # Ingress resource for managing external access to services in a Kubernetes cluster
 metadata:
-  name: factoryflow-ingress
-  namespace: factoryflow
+  name: factoryflow-ingress   # Name of the Ingress resource
+  namespace: factoryflow      # Namespace where the Ingress resource is created
 spec:
   rules:
-  - http:
+  - http:                     # HTTP rule for routing traffic to services based on the request path
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /               # Path for routing traffic to the web service
+        pathType: Prefix      # Path type for matching the request path
         backend:
           service:
-            name: web-service
+            name: web-service # Name of the backend service to route traffic to
             port:
-              number: 8000
+              number: 8000    # Port number of the backend service to route traffic to

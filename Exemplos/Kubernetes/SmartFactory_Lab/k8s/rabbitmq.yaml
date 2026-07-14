@@ -16,17 +16,17 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: RollingUpdate
+    type: RollingUpdate     # Deployment strategy as RollingUpdate, which gradually replaces old pods with new ones to minimize downtime.
     rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 1
+      maxUnavailable: 1     # Maximum number of pods that can be unavailable during the update process. In this case, at most 1 pod can be unavailable at any given time.
+      maxSurge: 1           # Maximum number of pods that can be created during the update process. In this case, at most 1 additional pod can be created at any given time.
   selector:
     matchLabels:
-      app: rabbitmq
+      app: rabbitmq         # Label selector to identify the pods managed by this deployment. In this case, it matches pods with the label "app: rabbitmq".
   template:
     metadata:
       labels:
-        app: rabbitmq
+        app: rabbitmq       # Label to identify the pods created by this deployment. In this case, it assigns the label "app: rabbitmq" to the pods.
     spec:
       containers:
       - name: rabbitmq
@@ -65,11 +65,11 @@ spec:
   selector:
     app: rabbitmq
   ports:
-  - name: amqp
+  - name: amqp        # Name of the port for the AMQP protocol, which is used for messaging between clients and the RabbitMQ server.
     protocol: TCP
     port: 5672
     targetPort: 5672
-  - name: web
+  - name: web         # Name of the port for the RabbitMQ management web interface, which provides a web-based UI for monitoring and managing RabbitMQ.
     protocol: TCP
     port: 15672
     targetPort: 15672
