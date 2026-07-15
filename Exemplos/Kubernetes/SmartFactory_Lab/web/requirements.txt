@@ -2,3 +2,4 @@ django
 mysqlclient
 pika
 gunicorn
+django-prometheus

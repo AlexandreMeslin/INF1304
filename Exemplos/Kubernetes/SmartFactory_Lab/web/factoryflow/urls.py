@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.urls import include
 from django.urls import path
 from factoryflow import views
 
@@ -26,4 +27,5 @@ urlpatterns = [
     path('api/v1/readiness/', views.readiness), # retorna o status de readiness do container
     path('api/v1/liveness/', views.liveness),   # retorna o status de liveness do container
     path('api/v1/cpu/', views.cpu),   # endpoint para consumir CPU do container
+    path('monitoring/', include('django_prometheus.urls')),  # Adiciona as URLs do django-prometheus para métricas
 ]
