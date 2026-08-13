@@ -2,14 +2,18 @@ import pika
 import json
 import time
 import random
+import os
+from dotenv import load_dotenv
 
 # ------------------------------
 # Configurações de conexão com o RabbitMQ
 # ------------------------------
-HOST = 'localhost' 
+load_dotenv()  # Load environment variables from .env file
+HOST = os.getenv('RABBITMQ_HOST', 'rabbitmq-service')
 #HOST = 'rabbitmq-service' 
-USERNAME = 'admin' 
-PASSWORD = 'admin123'
+PORT = int(os.getenv('RABBITMQ_PORT', 5672))
+USERNAME = os.getenv('RABBITMQ_USER', 'guest')
+PASSWORD = os.getenv('RABBITMQ_PASSWORD', 'guest123')
 
 # ------------------------------
 # Função principal para iniciar o produtor
@@ -19,7 +23,7 @@ def main():
     connection = pika.BlockingConnection(
         pika.ConnectionParameters(
             host=HOST,
-            port=5672,
+            port=PORT,
             credentials=pika.PlainCredentials(
                 username=USERNAME,
                 password=PASSWORD
