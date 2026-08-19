@@ -12,6 +12,25 @@
   <name>Exemplo Thread</name>
   <url>http://meslin.com.br</url>
 
+  <!--
+  Este projeto utiliza Java versão 11.
+  
+  Verifique a versão do Java:
+  $ javac -version
+
+  Verifique quais versões de Java estão instaladas:
+  $ update-java-alternatives &#45;&#45;list
+
+  Instalar a versão 11, se for necessário:
+  $ sudo apt install -y openjdk-11-jdk
+
+  Mudar a versão do Java para 11:
+  $ sudo update-alternatives &#45;&#45;config java
+  $ sudo update-alternatives &#45;&#45;config javac
+
+  IMPORTANTE: substitua &#45; por traço (que não pode ser incluido em um comentário XML)
+  -->
+
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
