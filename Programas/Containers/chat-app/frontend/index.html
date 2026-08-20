@@ -6,6 +6,13 @@
         let wsProducer;
         let wsConsumer;
 
+        /**
+         * Initializes WebSocket connections to the producer and consumer servers.
+         * This function is called when the DOM content is fully loaded.
+         * It dynamically constructs the WebSocket URLs based on the current host and connects to both servers.
+         * Incoming messages from each server are displayed in their respective chat boxes.
+         * @param {void} - No parameters.
+         */
         document.addEventListener('DOMContentLoaded', function() {
             // Pega o nome do host da página atual (ex: localhost, meuchat.com, 192.168.1.100)
             const serverAddress = window.location.hostname;
@@ -19,14 +26,15 @@
             wsProducer = new WebSocket(`ws://${serverAddress8080}/chat/ws`);
             wsConsumer = new WebSocket(`ws://${serverAddress8081}/chat/ws`);
 
+            // Define o que acontece quando uma mensagem é recebida do servidor produtor
             wsProducer.onmessage = function(event) {
                 let chatbox = document.getElementById("chatboxproducer");
-                chatbox.innerHTML += event.data + "<br/>";
+                chatbox.innerText += event.data + "<br/>";
             };
 
             wsConsumer.onmessage = function(event) {
                 let chatbox = document.getElementById("chatboxconsumer");
-                chatbox.innerHTML += event.data + "<br/>";
+                chatbox.innerText += event.data + "<br/>";
             };
         });
 

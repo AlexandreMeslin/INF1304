@@ -30,11 +30,11 @@ check_result $?
 # Containers
 echo Criando os containers
 cd ..
-sudo docker-compose build
+sudo docker compose build
 check_result $?
 
 echo Subindo os containers
-sudo docker-compose up -d
+sudo docker compose up -d
 check_result $?
 
 sudo docker ps -a

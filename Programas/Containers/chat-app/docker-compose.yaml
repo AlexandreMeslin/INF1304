@@ -1,0 +1,105 @@
+# Zookeeper não é necessário no modo KRaft do Kafka, 
+# O próprio Kafka atua como controlador 
+# gerenciando o cluster sem a necessidade de um serviço externo de coordenação
+services:
+  kafka:    # Nome do serviço Kafka
+    image: apache/kafka:latest  # Imagem oficial do Kafka
+    #container_name: kafka       # Nome do container
+    ports:  # Mapeamento de portas
+      - "9092:9092"             # Porta para comunicação com clientes Kafka
+
+    environment:    # Variáveis de ambiente para configuração do Kafka
+      # FROM: https://hub.docker.com/r/apache/kafka
+      # Kafka em modo KRaft: broker + controller
+      KAFKA_NODE_ID: 1          # Identificador único do nó Kafka
+      KAFKA_PROCESS_ROLES: broker,controller  # Define os papéis do nó Kafka (broker e controller)
+
+      # Controller interno
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093  # KAFKA_CONTROLLER_QUORUM_VOTERS is a comma-separated list of the controllers
+
+      # Listeners
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+
+      # Protocolos dos listeners
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # Listener usado pelos brokers para comunicação interna
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      # Listener usado pelo controller
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      # Configurações para um único broker
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+
+      # Criar tópicos automaticamente
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+    volumes:    # Montagem de volume para persistência de dados do Kafka
+      - kafka-data:/var/lib/kafka/data
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+    networks:
+      - int-network
+
+
+  producer-service:
+    build: ./producer-service
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - kafka
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    networks:
+      - int-network
+      - ext-network
+
+
+  consumer-service:
+    build: ./consumer-service
+    ports:
+      - "8081:8080"
+
+    depends_on:
+      - kafka
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    networks:
+      - ext-network
+      - int-network
+
+
+volumes:
+  kafka-data:
+
+
+networks:
+  ext-network:
+    driver: bridge
+
+  int-network:
+    driver: bridge
+    internal: true

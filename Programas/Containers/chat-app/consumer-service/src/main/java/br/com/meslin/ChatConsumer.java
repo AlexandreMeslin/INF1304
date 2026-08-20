@@ -1,3 +1,12 @@
+/**
+ * ChatConsumer.java
+ * This class implements a Kafka consumer that listens for messages on the "chat-messages" topic.
+ * It receives messages from Kafka and broadcasts them to all connected WebSocket clients.
+ * 
+ * @author  Meslin
+ * @version 1.0
+ * @since   2024-06-10
+ */
 package br.com.meslin;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -20,8 +29,16 @@ public class ChatConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(ChatConsumer.class);
 
+    /**
+     * Main method to start the ChatConsumer and WebSocket server.
+     * It initializes the Kafka consumer, subscribes to the "chat-messages" topic,
+     * and continuously polls for new messages. 
+     * Received messages are broadcasted to all connected WebSocket clients.
+     * 
+     * @param args  Command line arguments (not used).
+     */
     public static void main(String[] args) {
-        logger.info("Startint Chat Consumer.");
+        logger.info("Starting Chat Consumer.");
         Properties props = new Properties();
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
         props.put("group.id", GROUP_ID);
