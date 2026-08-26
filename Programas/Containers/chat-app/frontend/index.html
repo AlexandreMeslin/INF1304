@@ -23,8 +23,8 @@
             console.log(`Tentando conexão com ${serverAddress8081} na porta 8081`);
 
             // Constrói o URL do WebSocket dinamicamente
-            wsProducer = new WebSocket(`ws://${serverAddress8080}/chat/ws`);
-            wsConsumer = new WebSocket(`ws://${serverAddress8081}/chat/ws`);
+            wsProducer = new WebSocket(`wss://${serverAddress8080}/chat/ws`);
+            wsConsumer = new WebSocket(`wss://${serverAddress8081}/chat/ws`);
 
             // Define o que acontece quando uma mensagem é recebida do servidor produtor
             wsProducer.onmessage = function(event) {
