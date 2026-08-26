@@ -1,0 +1,219 @@
+# Zookeeper não é necessário no modo KRaft do Kafka
+# Os três brokers também atuam como controllers
+# gerenciando o cluster sem a necessidade de um serviço externo de coordenação
+services:
+  # ============================================================
+  # Kafka broker 1
+  # ============================================================
+  kafka-1:    # Nome do serviço Kafka
+    image: apache/kafka:latest  # Imagem oficial do Kafka
+    #container_name: kafka       # Nome do container
+    ports:  # Mapeamento de portas
+      - "9092:9092"             # Porta para comunicação com clientes Kafka
+
+    environment:    # Variáveis de ambiente para configuração do Kafka
+      # FROM: https://hub.docker.com/r/apache/kafka
+      # Kafka em modo KRaft: broker + controller
+      KAFKA_NODE_ID: 1          # Identificador único do nó Kafka
+      KAFKA_PROCESS_ROLES: broker,controller  # Define os papéis do nó Kafka (broker e controller)
+
+      # Controller interno
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9093, 2@kafka-2:9093, 3@kafka-3:9093  # KAFKA_CONTROLLER_QUORUM_VOTERS is a comma-separated list of the controllers
+
+      # Listeners
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092
+
+      # Protocolos dos listeners
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # Listener usado pelos brokers para comunicação interna
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      # Listener usado pelo controller
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      # Agora existem 3 brokers
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      # Criar tópicos automaticamente
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+    volumes:    # Montagem de volume para persistência de dados do Kafka
+      - kafka-1-data:/var/lib/kafka/data
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+    networks:
+      - int-network
+
+  # ============================================================
+  # Kafka broker 2
+  # ============================================================
+  kafka-2:    # Nome do serviço Kafka
+    image: apache/kafka:latest  # Imagem oficial do Kafka
+    #container_name: kafka       # Nome do container
+    ports:  # Mapeamento de portas
+      - "9094:9092"             # Porta para comunicação com clientes Kafka (9094 é a porta externa)
+
+    environment:    # Variáveis de ambiente para configuração do Kafka
+      # FROM: https://hub.docker.com/r/apache/kafka
+      # Kafka em modo KRaft: broker + controller
+      KAFKA_NODE_ID: 2          # Identificador único do nó Kafka
+      KAFKA_PROCESS_ROLES: broker,controller  # Define os papéis do nó Kafka (broker e controller)
+
+      # Controller interno
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9093, 2@kafka-2:9093, 3@kafka-3:9093  # KAFKA_CONTROLLER_QUORUM_VOTERS is a comma-separated list of the controllers
+
+      # Listeners
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-2:9092
+
+      # Protocolos dos listeners
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      # Listener usado pelos brokers para comunicação interna
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      # Listener usado pelo controller
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      # Agora existem 3 brokers
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      # Criar tópicos automaticamente
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+    volumes:    # Montagem de volume para persistência de dados do Kafka
+      - kafka-2-data:/var/lib/kafka/data
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+    networks:
+      - int-network
+
+  # ============================================================
+  # Kafka broker 3
+  # ============================================================
+  kafka-3:
+    image: apache/kafka:latest
+    ports:
+      - "9096:9092"
+
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: broker,controller
+
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka-1:9093, 2@kafka-2:9093, 3@kafka-3:9093
+
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-3:9092
+
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+    volumes:
+      - kafka-3-data:/var/lib/kafka/data
+
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+    networks:
+      - int-network
+
+  # ============================================================
+  # Producer
+  # ============================================================
+  producer-service:
+    build: ./producer-service
+
+    ports:
+      - "8080:8080"
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    networks:
+      - int-network
+      - ext-network
+
+  # ============================================================
+  # Consumer
+  # ============================================================
+  consumer-service:
+    build: ./consumer-service
+
+    ports:
+      - "8081:8080"
+
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka-1:9092,kafka-2:9092,kafka-3:9092
+
+    depends_on:
+      - kafka-1
+      - kafka-2
+      - kafka-3
+
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
+
+    networks:
+      - ext-network
+      - int-network
+
+
+volumes:
+  kafka-1-data:
+  kafka-2-data:
+  kafka-3-data:
+
+networks:
+  ext-network:
+    driver: bridge
+
+  int-network:
+    driver: bridge
+    internal: true

@@ -1,3 +1,7 @@
+/**
+ * ChatConsumer.java
+ * This class is responsible for consuming messages from a Kafka topic and broadcasting them to connected WebSocket clients.
+ */
 package br.com.meslin;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -8,18 +12,30 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
-import org.slf4j.Logger;
+import org.slf4j.Logger;       
 import org.slf4j.LoggerFactory;
 
 import br.com.meslin.WebSocketServer;
 
+/**
+ * ChatConsumer class is responsible for consuming messages from a Kafka topic and broadcasting them to connected WebSocket clients.
+ * It initializes a KafkaConsumer with the necessary configurations and continuously polls for new messages.
+ * When a new message is received, it is logged and broadcast to all connected WebSocket clients.
+ */
 public class ChatConsumer {
-    private static final String TOPIC = "chat-messages";
-    private static final String BOOTSTRAP_SERVERS = System.getenv("KAFKA_BROKERS");
-    private static final String GROUP_ID = "chat-consumer-group";
+    private static final String TOPIC = "chat-messages";        // Kafka topic to which messages will be sent
+    private static final String BOOTSTRAP_SERVERS = System.getenv("KAFKA_BROKERS"); // Kafka bootstrap servers, retrieved from environment variable
+    private static final String GROUP_ID = "chat-consumer-group";       // Kafka consumer group ID for managing offsets and load balancing
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatConsumer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChatConsumer.class);   // Logger instance for logging information and errors
 
+    /**
+     * Main method to start the ChatConsumer and WebSocket server.
+     * It initializes the KafkaConsumer with the necessary configurations, subscribes to the specified topic, and continuously polls for new messages.
+     * When a new message is received, it is logged and broadcast to all connected WebSocket clients.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         logger.info("Starting Chat Consumer.");
         Properties props = new Properties();

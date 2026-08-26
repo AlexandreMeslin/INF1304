@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script>
+        let wsProducer;
+        let wsConsumer;
+
+        /**
+         * Initializes WebSocket connections to the producer and consumer servers.
+         * This function is called when the DOM content is fully loaded.
+         * It dynamically constructs the WebSocket URLs based on the current host and connects to both servers.
+         * Incoming messages from each server are displayed in their respective chat boxes.
+         * @param {void} - No parameters.
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pega o nome do host da página atual (ex: localhost, meuchat.com, 192.168.1.100)
+            const serverAddress = window.location.hostname;
+            const serverAddress8080 = serverAddress.replace("-8000", "-8080");
+            const serverAddress8081 = serverAddress.replace("-8000", "-8081");
+
+            console.log(`Tentando conexão com ${serverAddress8080} na porta 8080`);
+            console.log(`Tentando conexão com ${serverAddress8081} na porta 8081`);
+
+            // Constrói o URL do WebSocket dinamicamente
+            wsProducer = new WebSocket(`ws://${serverAddress8080}/chat/ws`);
+            wsConsumer = new WebSocket(`ws://${serverAddress8081}/chat/ws`);
+
+            // Define o que acontece quando uma mensagem é recebida do servidor produtor
+            wsProducer.onmessage = function(event) {
+                let chatbox = document.getElementById("chatboxproducer");
+                chatbox.innerText += event.data + "<br/>";
+            };
+
+            wsConsumer.onmessage = function(event) {
+                let chatbox = document.getElementById("chatboxconsumer");
+                chatbox.innerText += event.data + "<br/>";
+            };
+        });
+
+        function sendMessage() {
+            let message = document.getElementById("message").value;
+            wsProducer.send(message);
+        }
+    </script>
+</head>
+<body>
+    <h1>Chat</h1>
+    <div id="chatboxproducer"></div>
+    <input type="text" id="message" placeholder="Type a message..."/>
+    <button onclick="sendMessage()">Send</button>
+    <div id="chatboxconsumer"></div>
+</body>
+</html>

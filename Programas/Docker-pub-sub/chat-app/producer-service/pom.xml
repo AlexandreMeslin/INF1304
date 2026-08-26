@@ -9,26 +9,26 @@
   <version>1.0-SNAPSHOT</version>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  <!-- Encoding do projeto -->
+    <maven.compiler.source>11</maven.compiler.source>   <!-- Versão do Java para compilação -->
+    <maven.compiler.target>11</maven.compiler.target>   <!-- Versão do Java para execução -->
   </properties>
 
   <build>
-    <finalName>producer-service</finalName>
+    <finalName>producer-service</finalName>   <!-- Nome final do JAR gerado -->
     
     <plugins>
-      <plugin>
+      <plugin>    <!-- Configuração do plugin de compilação do Maven -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
-          <release>11</release>
+          <source>11</source>   <!-- Versão do Java para compilação -->
+          <target>11</target>   <!-- Versão do Java para execução -->
+          <release>11</release>  <!-- Define a versão do Java para compatibilidade -->
         </configuration>
       </plugin>
-      <plugin>
+      <plugin>    <!-- Configuração do plugin de empacotamento do Maven -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.2.0</version>
@@ -39,7 +39,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
+      <plugin>    <!-- Configuração do plugin de montagem do Maven para criar um JAR com dependências --> 
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>

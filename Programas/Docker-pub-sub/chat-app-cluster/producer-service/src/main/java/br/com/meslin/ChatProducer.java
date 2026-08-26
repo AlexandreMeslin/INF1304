@@ -1,3 +1,10 @@
+/**
+ * ChatProducer.java
+ * This class is responsible for producing messages to a Kafka topic.
+ * It uses the KafkaProducer from the Apache Kafka client library to send messages.
+ * The class is designed to be used in a chat application where messages are sent to a Kafka
+ * 
+ */
 package br.com.meslin;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -11,12 +18,23 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * ChatProducer class is responsible for sending messages to a specified Kafka topic.
+ * It initializes a KafkaProducer with the necessary configurations and provides methods to send messages and close the producer.
+ * The class also includes a main method to start the ChatProducer and WebSocket server.
+ */
 public class ChatProducer {
-    private final KafkaProducer<String, String> producer;
-    private final String topic;
+    private final KafkaProducer<String, String> producer;   // Kafka producer instance for sending messages
+    private final String topic;                             // Kafka topic to which messages will be sent
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatProducer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChatProducer.class);   // Logger instance for logging information and errors
 
+    /**
+     * Constructor for ChatProducer.
+     * Initializes the KafkaProducer with the necessary configurations and sets the topic for message sending.
+     * 
+     * @param topic The Kafka topic to which messages will be sent.
+     */
     public ChatProducer(String topic) {
         Properties props = new Properties();
         String kafkaBrokers = System.getenv("KAFKA_BROKERS");
@@ -33,6 +51,12 @@ public class ChatProducer {
         this.topic = topic;
     }
 
+    /**
+     * Sends a message to the Kafka topic.
+     * The message is prefixed with the current date and time before being sent.
+     * 
+     * @param message The message to be sent.
+     */
     public void sendMessage(String message) {
         logger.info("[ChatProducer.sendMessage] " + message);
         message = new Date() + " ==> " + message;
@@ -40,10 +64,19 @@ public class ChatProducer {
         producer.send(new ProducerRecord<>(topic, message));
     }
 
+    /**
+     * Closes the Kafka producer to release resources.
+     * This method should be called when the producer is no longer needed to ensure proper resource management.
+     */
     public void close() {
         producer.close();
     }
-    
+
+    /**
+     * Main method to start the ChatProducer and WebSocket server.
+     * It initializes the ChatProducer with the specified Kafka topic and starts the WebSocket server.
+     * The application will keep running until it is terminated, at which point the WebSocket server and ChatProducer will be properly closed.  
+     */
     public static void main(String[] args) {
         logger.info("Starting Chat Producer.");
         ChatProducer chatProducer = new ChatProducer("chat-messages");

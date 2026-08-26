@@ -1,3 +1,10 @@
+/**
+ * Classe que representa o produtor do chat.
+ * 
+ * @author Alexandre Meslin
+ * @version 1.0
+ * @since 2024-06-10
+ */
 package br.com.meslin;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -10,12 +17,13 @@ import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
 
 public class ChatProducer {
-    private final KafkaProducer<String, String> producer;
-    private final String topic;
+    private final KafkaProducer<String, String> producer;   /// Instância do produtor Kafka para enviar mensagens.
+    private final String topic;         /// Nome do tópico Kafka para o qual as mensagens serão enviadas.
 
-    private static final Logger logger = LoggerFactory.getLogger(ChatProducer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ChatProducer.class);   /// Instância do logger para registrar informações e erros.
 
     /**
      * Constructor for ChatProducer.

@@ -1,7 +1,9 @@
 /**
- * Classe responsável por produzir mensagens para o tópico do chat.
- * Esta classe utiliza o Apache Kafka para enviar mensagens para um tópico específico.
- * Ela encapsula a lógica de configuração do produtor Kafka e fornece métodos para enviar mensagens.
+ * Classe que representa o produtor do chat.
+ * 
+ * @author Alexandre Meslin
+ * @version 1.0
+ * @since 2024-06-10
  */
 package br.com.meslin;
 
@@ -16,10 +18,6 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Classe responsável por produzir mensagens para o tópico do chat.
- * ChatProducer
- */
 public class ChatProducer {
     private final KafkaProducer<String, String> producer;   /// Instância do produtor Kafka para enviar mensagens.
     private final String topic;         /// Nome do tópico Kafka para o qual as mensagens serão enviadas.
@@ -27,13 +25,13 @@ public class ChatProducer {
     private static final Logger logger = LoggerFactory.getLogger(ChatProducer.class);   /// Instância do logger para registrar informações e erros.
 
     /**
-     * Construtor da classe ChatProducer.
-     * Inicializa o produtor Kafka com as configurações necessárias e define o tópico para envio de mensagens.
-     * @param topic
+     * Constructor for ChatProducer.
+     * 
+     * @param topic The Kafka topic to which messages will be sent.
      */
     public ChatProducer(String topic) {
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, System.getenv("KAFKA_BOOTSTRAP_SERVERS"));
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
@@ -42,10 +40,9 @@ public class ChatProducer {
     }
 
     /**
-     * Envia uma mensagem para o tópico Kafka.
-     * A mensagem é registrada no log antes de ser enviada.
+     * Sends a message to the Kafka topic.
      * 
-     * @param message
+     * @param message The message to be sent.
      */
     public void sendMessage(String message) {
         logger.info("[ChatProducer.sendMessage] " + message);
@@ -55,25 +52,27 @@ public class ChatProducer {
     }
 
     /**
-     * Fecha o produtor Kafka.
+     * Closes the Kafka producer to release resources.
      */
     public void close() {
         producer.close();
     }
     
     /**
-     * Método principal para iniciar o ChatProducer e o servidor WebSocket.
-     * Este método cria uma instância do ChatProducer, inicia o servidor WebSocket e mantém a aplicação em execução.
-     * Ele também adiciona um hook de desligamento para garantir que os recursos sejam liberados corretamente ao encerrar a aplicação.
+     * Main method to start the ChatProducer and WebSocket server.
      * 
-     * @param args  Argumentos da linha de comando (não utilizados).
+     * @param args  Command line arguments (not used).
      */
     public static void main(String[] args) {
         logger.info("[ChatProducer.main] Starting Chat Producer.");
+
+        // Initialize ChatProducer with the topic "chat-messages"
         ChatProducer chatProducer = new ChatProducer("chat-messages");
+
+        // Start the WebSocket server and pass the ChatProducer instance to it
         WebSocketServer.startServer(chatProducer);
 
-        // Keep the application running
+        // Add a shutdown hook to gracefully close the producer and stop the WebSocket server
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("[ChatProducer.main] Shutting down...");
             WebSocketServer.stopServer();
@@ -81,6 +80,7 @@ public class ChatProducer {
             logger.info("[ChatProducer.main] Shutdown complete.");
         }));
 
+        // Keep the application running
         try {
             // Use a synchronized block to wait indefinitely
             synchronized (ChatProducer.class) {

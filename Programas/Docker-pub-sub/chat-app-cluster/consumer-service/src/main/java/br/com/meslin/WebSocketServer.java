@@ -1,3 +1,8 @@
+/**
+ * WebSocketServer.java
+ * This class is responsible for handling WebSocket connections in the chat application.
+ * It manages the connection lifecycle and broadcasts messages to all connected clients.
+ */
 package br.com.meslin;
 
 import javax.websocket.OnClose;
@@ -12,15 +17,24 @@ import org.glassfish.tyrus.server.Server;
 
 import java.util.Date;
 
-@ServerEndpoint(value = "/ws")
+/**
+ * This class is responsible for handling WebSocket connections in the chat application.
+ * It manages the connection lifecycle and broadcasts messages to all connected clients.
+ * 
+ * @author Alexandre Meslin
+ * @version 1.0
+ */
+@ServerEndpoint(value = "/ws")  /// Acrescenta /ws ao endereço do servidor WebSocket
 public class WebSocketServer {
 
-    private Session session;
-    private static final Set<WebSocketServer> connections = new CopyOnWriteArraySet<>();
-    private static Server server;
+    private Session session;    /// Sessão WebSocket associada à conexão atual
+    private static final Set<WebSocketServer> connections = new CopyOnWriteArraySet<>();    /// Conjunto thread-safe para gerenciar conexões WebSocket ativas
+    private static Server server;   /// Instância do servidor Tyrus para gerenciar conexões WebSocket
 
+    /**
+     * Inicia o servidor WebSocket.
+     */
     public static void startServer() {
-
         server = new Server("localhost", 8080, "/chat", null, WebSocketServer.class);
 
         try {
@@ -30,27 +44,53 @@ public class WebSocketServer {
         }
     }
 
+    /**
+     * Para o servidor WebSocket.
+     */
     public static void stopServer() {
         server.stop();
     }
 
-    @OnOpen
+
+    /**
+     * Manipula o evento quando uma nova conexão WebSocket é estabelecida.
+     * Adiciona a nova conexão ao conjunto de conexões ativas.
+     * 
+     * @param session
+     */
+    @OnOpen     /// Anotação para indicar que este método será chamado quando uma nova conexão WebSocket for aberta
     public void onOpen(Session session) {
         this.session = session;
         connections.add(this);
     }
 
-    @OnMessage
+    /**
+     * Manipula mensagens recebidas de clientes WebSocket.
+     * Transmite a mensagem recebida para todos os clientes WebSocket conectados.
+     * 
+     * @param message
+     */
+    @OnMessage      /// Anotação para indicar que este método será chamado quando uma mensagem for recebida de um cliente WebSocket
     public void onMessage(String message) {
-        
         broadcast(message);
     }
 
+    /**
+     * Manipula o evento quando uma conexão WebSocket é fechada.
+     * Remove a conexão do conjunto de conexões ativas.
+     * 
+     * @param session
+     */
     @OnClose
     public void onClose(Session session) {
         connections.remove(this);
     }
 
+    /**
+     * Transmite uma mensagem para todos os clientes WebSocket conectados.
+     * 
+     * @param message
+     */
     public static void broadcast(String message) {
         for (WebSocketServer client : connections) {
             try {
