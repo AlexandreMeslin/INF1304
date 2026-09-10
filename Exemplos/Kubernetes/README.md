@@ -1,5 +1,22 @@
 # Kubernetes (K8s)
 
+# Comandos mais comuns
+
+```bash
+$ sudo k3s kubectl get nodes
+$ sudo kubectl apply -f k8s/namespace.yaml
+$ sudo kubectl delete -f k8s/mysql.yaml
+$ sudo kubectl delete pod debug -n factoryflow
+$ sudo kubectl get nodes -o wide
+$ sudo kubectl get pods -n factoryflow -o wide
+$ sudo kubectl get services -n factoryflow
+$ sudo kubectl label node ip-172-31-7-142 mysql=true
+$ sudo kubectl port-forward --address 0.0.0.0 -n factoryflow svc/rabbitmq-service 15672:15672
+$ sudo kubectl rollout restart deployment web-deployment -n factoryflow
+$ sudo kubectl run debug --rm -it --image=busybox -n factoryflow – sh
+$ sudo kubectl scale deployment web-deployment --replicas=3 -n factoryflow
+```
+
 # Problemas conhecidos e suas "soluções"
 
 ## Erro ao criar um deployment
