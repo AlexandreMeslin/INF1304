@@ -19,6 +19,22 @@ $ sudo kubectl scale deployment web-deployment --replicas=3 -n factoryflow
 
 # Problemas conhecidos e suas "soluções"
 
+## Problemas ao usar DNS em um container
+
+### Descrição
+
+Ao tentar resolver algum nome, o cliente DNS acaba dando timeout.
+
+### Sintoma
+
+<não capturei o sintoma>
+
+### Solução
+
+#### Primeira tentativa
+
+Verifique as portas no **Security group**, principalmente a porta UDP 8472 do VXLAN.
+
 ## Erro ao criar um deployment
 
 ### Descrição
