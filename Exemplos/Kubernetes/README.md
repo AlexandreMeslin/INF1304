@@ -33,7 +33,12 @@ Ao tentar resolver algum nome, o cliente DNS acaba dando timeout.
 
 #### Primeira tentativa
 
-Verifique as portas no **Security group**, principalmente a porta UDP 8472 do VXLAN.
+Verifique as portas no **Security group**, principalmente a porta UDP 8472 do **VXLAN**.
+
+#### Segunda tentativa
+
+Verifique se o mesmo **Security group** foi aplicado a todas as EC2.
+Caso seja necessário modificar o **Security group** de alguma EC2, vá até a console da instância e clique em **Achtion** > **Security** > **Change security groups**.
 
 ## Erro ao criar um deployment
 
