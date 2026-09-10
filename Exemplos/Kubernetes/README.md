@@ -1,6 +1,6 @@
 # Kubernetes (K8s)
 
-# Comandos mais comuns
+# Comandos mais comuns (com output)
 
 ```bash
 $ sudo k3s kubectl get nodes
