@@ -11,6 +11,9 @@
  * Para executar o cliente:<br>
  * $ java -jar target/grpc-client.jar
  * 
+ * Se necessário, pode-se especificar o servidor gRPC com a propriedade "servidor", por exemplo:<br>
+ * $ java -Dservidor=localhost -jar target/grpc-client.jar
+ * 
  * @note Observação: este exemplo não usa criptografia (TLS/SSL).
  * @note A comunicação é feita em texto puro (plaintext).
  * @note Em um ambiente de produção, é recomendável usar TLS/SSL.
@@ -34,13 +37,15 @@ import io.grpc.ManagedChannelBuilder;
  */
 public class CalcClient {
     final static int PORTA = 5003;  // Porta do servidor gRPC
+
     /**
      * Método principal.
      * @param args argumentos de linha de comando
      */
     public static void main(String[] args) {
+        String servidor = System.getProperty("servidor", "localhost");  // Servidor gRPC (padrão: localhost)
         // Cria o canal de comunicação com o servidor gRPC
-        ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", PORTA)
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(servidor, PORTA)
                 .usePlaintext()         // (para usar TLS, remover a chamada .usePlaintext())
                 .build();
 

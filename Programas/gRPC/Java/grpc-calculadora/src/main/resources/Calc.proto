@@ -1,8 +1,12 @@
-syntax = "proto3";
+syntax = "proto3";      // versão da linguagem do Protocol Buffers
 
-option java_multiple_files =  true;
+option java_multiple_files =  true; // Criar código Java em arquivos separados
 
-package br.com.meslin;
+package br.com.meslin;  // Package do protocol buffer
+
+/*
+ * Mensagens
+ */
 
 message Conta {
     int32 operando1 = 1;
@@ -24,6 +28,9 @@ message ResultadoMultiplo {
     string operacao = 2;    
 }
 
+/*
+ * Serviços
+ */
 service CalcService {
     rpc opera(Conta) returns (Resultado);
     rpc operaVariasVezes(ContaMultipla) returns (stream ResultadoMultiplo);
