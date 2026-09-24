@@ -40,6 +40,9 @@ public class Server {
     public static void main(String[] args) {
         System.out.println("Starting server...");
 
+        // Para resolver o nome do host de acordo com o nome que está no certificado
+        System.setProperty("java.rmi.server.hostname", "rmi-server" );
+
         try {
             // Configura o socket factory para usar TLS
             SslRMIClientSocketFactory clientSocketFactory = new SslRMIClientSocketFactory();
