@@ -19,11 +19,12 @@
  * 
  * Para importar o certificado do servidor no cliente, utilize o seguinte comando:
  * $ keytool -importcert \
- * -alias calculator-server \
- * -file ./server/security/calculator-server.crt \
- * -keystore ./client/security/client-truststore.p12 \
- * -storetype PKCS12 \
- * -storepass changeit 
+ *   -alias calculator-server \
+ *   -file ./server/security/calculator-server.crt \
+ *   -keystore ./client/security/client-truststore.p12 \
+ *   -storetype PKCS12 \
+ *   -storepass changeit \
+ *   -noprompt
  *
  * @author Alexandre Meslin
  */

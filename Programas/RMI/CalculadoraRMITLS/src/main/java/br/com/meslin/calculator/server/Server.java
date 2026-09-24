@@ -14,24 +14,26 @@ import br.com.meslin.calculator.shared.Calculator;
  * Server
  * 
  * Para gerar o certificado autoassinado, utilize o seguinte comando:
- * $ keytool -genkeypair \
- *  -alias calculator-server \
- *  -keyalg RSA \
- *  -keysize 2048 \
- *  -validity 365 \
- *  -keystore ./server/security/server-keystore.p12 \
- *  -storetype PKCS12 \
- *  -storepass changeit \
- *  -keypass changeit \
- *  -dname "CN=calculator-server, OU=INF1304, O=PUC-Rio, L=Rio de Janeiro, ST=RJ, C=BR"
+ * $ keytool -genkeypair 
+ *   -alias calculator-server \
+ *   -keyalg RSA \
+ *   -keysize 2048 \
+ *   -validity 365 \
+ *   -keystore ./server/security/server-keystore.p12 \
+ *   -storetype PKCS12 \
+ *   -storepass changeit \
+ *   -keypass changeit \
+ *   -dname "CN=rmi-server, OU=INF1304, O=PUC-Rio, L=Rio de Janeiro, ST=RJ, C=BR" \
+ *   -ext "SAN=dns:rmi-server,dns:calculator-server"
  * 
  * Para exportar o certificado do servidor, utilize o seguinte comando:
  * $ keytool -exportcert \
- *  -alias calculator-server \
- *  -keystore ./server/security/server-keystore.p12 \
- *  -storetype PKCS12 \
- *  -rfc \
- *  -file ./server/security/calculator-server.crt
+ *   -alias calculator-server \
+ *   -keystore ./server/security/server-keystore.p12 \
+ *   -storetype PKCS12 \
+ *   -storepass changeit \
+ *   -rfc \
+ *   -file ./server/security/calculator-server.crt
  */
 
 public class Server {
