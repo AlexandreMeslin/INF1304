@@ -18,4 +18,12 @@ COPY ../target/rmi-client.jar /app/rmi-client.jar
 COPY ./client/security/client-truststore.p12 /app/security/client-truststore.p12
 
 # Iniciar o cliente RMI
-CMD ["java", "-jar", "rmi-client.jar"]
+#CMD ["java", "-jar", "rmi-client.jar"]
+CMD [ \
+    "java", \
+    "-Djavax.net.ssl.trustStore=/app/security/client-truststore.p12", \
+    "-Djavax.net.ssl.trustStorePassword=changeit", \
+    "-Djavax.net.ssl.trustStoreType=PKCS12", \
+    "-jar", \
+    "rmi-client.jar" \
+]

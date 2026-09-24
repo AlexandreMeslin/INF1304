@@ -29,6 +29,8 @@
  */
 package br.com.meslin.calculator.client;
 
+import java.rmi.ConnectException;
+import java.rmi.ConnectIOException;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -47,14 +49,22 @@ public class Client {
 
             Registry registry = null;
 
-            while(registry == null) {
+            while(calculadora == null) {
                 try {
                     registry = LocateRegistry.getRegistry("rmi-server", PORT, clientSocketFactory);
                     calculadora = (Calculator) registry.lookup("Calculator");
+                } catch(ConnectIOException e) {
+                    System.out.println("[CLIENT - ConnectIOException] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - ConnectIOException] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
+                } catch(ConnectException e) {
+                    System.out.println("[CLIENT - ConnectException] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - ConnectException] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
                 } catch (Exception e) {
-                    System.out.println("Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
-                    System.out.println("Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
-                    Thread.sleep(1000);
+                    System.out.println("[CLIENT - Exception] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - Exception] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
                 }
             }
 

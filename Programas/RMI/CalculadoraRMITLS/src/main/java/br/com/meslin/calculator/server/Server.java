@@ -29,8 +29,8 @@ import br.com.meslin.calculator.shared.Calculator;
  * $ keytool -exportcert \
  *  -alias calculator-server \
  *  -keystore ./server/security/server-keystore.p12 \
+ *  -storetype PKCS12 \
  *  -rfc \
- *  -storepass changeit \
  *  -file ./server/security/calculator-server.crt
  */
 

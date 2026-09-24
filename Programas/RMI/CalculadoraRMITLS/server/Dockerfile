@@ -27,7 +27,6 @@ CMD [ \
     "-Djavax.net.ssl.keyStore=/app/security/server-keystore.p12", \
     "-Djavax.net.ssl.keyStorePassword=changeit", \
     "-Djavax.net.ssl.keyStoreType=PKCS12", \
-    "-Djavax.net.debug=ssl,handshake", \
     "-jar", \
     "rmi-server.jar" \
 ]
