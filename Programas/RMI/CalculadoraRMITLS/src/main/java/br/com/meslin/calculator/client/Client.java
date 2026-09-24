@@ -16,23 +16,43 @@
  * 
  * Para executar o cliente:
  * $ sudo docker run -d --name rmi-client calculator-rmi-client
+ * 
+ * Para importar o certificado do servidor no cliente, utilize o seguinte comando:
+ * $ keytool -importcert \
+ * -alias calculator-server \
+ * -file ./server/security/calculator-server.crt \
+ * -keystore ./client/security/client-truststore.p12 \
+ * -storetype PKCS12 \
+ * -storepass changeit 
  *
  * @author Alexandre Meslin
  */
 package br.com.meslin.calculator.client;
 
 import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import javax.rmi.ssl.SslRMIClientSocketFactory;
 
 import br.com.meslin.calculator.shared.Calculator;
 
 public class Client {
+    static int PORT = 1099; /// Porta padrão do RMI
     public static void main(String[] args) {
         Calculator calculadora = null;
         try {
-            while(calculadora == null) {
+            // Configura o socket factory para usar TLS
+            SslRMIClientSocketFactory clientSocketFactory = new SslRMIClientSocketFactory();
+
+            Registry registry = null;
+
+            while(registry == null) {
                 try {
-                    calculadora = (Calculator) Naming.lookup("rmi://rmi-server/Calculator");
+                    registry = LocateRegistry.getRegistry("rmi-server", PORT, clientSocketFactory);
+                    calculadora = (Calculator) registry.lookup("Calculator");
                 } catch (Exception e) {
+                    System.out.println("Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
                     System.out.println("Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
                     Thread.sleep(1000);
                 }

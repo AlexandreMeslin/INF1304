@@ -9,9 +9,9 @@ public class Server {
     public static void main(String[] args) {
         System.out.println("Starting server...");
         try {
-            LocateRegistry.createRegistry(1099);  // Cria o registro na porta 1099
+            LocateRegistry.createRegistry(1099);  // Cria o registry na porta 1099
             Calculator calculadora = new CalculatorImpl();
-            Naming.rebind("rmi://localhost/Calculator", calculadora);  // Registra o objeto remoto
+            Naming.rebind("rmi://0.0.0.0/Calculator", calculadora);  // Registra o objeto remoto
             System.out.println("Servidor de calculadora pronto.");
         } catch (Exception e) {
             e.printStackTrace();

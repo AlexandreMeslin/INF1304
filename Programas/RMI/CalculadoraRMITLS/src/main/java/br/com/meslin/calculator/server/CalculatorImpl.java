@@ -1,11 +1,33 @@
 package br.com.meslin.calculator.server;
 
 import java.rmi.RemoteException;
+import java.rmi.server.RMIClientSocketFactory;
+import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 
 import br.com.meslin.calculator.shared.Calculator;
 
 public class CalculatorImpl extends UnicastRemoteObject implements Calculator {
+    /**
+     * Construtor da classe CalculatorImpl com suporte a TLS.
+     * @param clientSocketFactory Fábrica de sockets do cliente
+     * @param serverSocketFactory Fábrica de sockets do servidor
+     * @throws RemoteException
+     */
+    protected CalculatorImpl(RMIClientSocketFactory clientSocketFactory, RMIServerSocketFactory serverSocketFactory) throws RemoteException {
+        super(0, clientSocketFactory, serverSocketFactory);
+    }
+
+    /**
+     * Construtor da classe CalculatorImpl com suporte a TLS.
+     * @param port porta para exportar o objeto remoto
+     * @param clientSocketFactory Fábrica de sockets do cliente
+     * @param serverSocketFactory Fábrica de sockets do servidor
+     * @throws RemoteException
+     */
+    protected CalculatorImpl(int port, RMIClientSocketFactory clientSocketFactory, RMIServerSocketFactory serverSocketFactory) throws RemoteException {
+        super(port, clientSocketFactory, serverSocketFactory);
+    }
 
     /**
      * Construtor da classe CalculatorImpl.

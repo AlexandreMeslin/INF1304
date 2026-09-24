@@ -15,9 +15,19 @@ WORKDIR /app
 
 # Copiar os JARs gerados do estágio de build para o diretório de trabalho
 COPY ../target/rmi-server.jar /app/rmi-server.jar
+COPY ./server/security/server-keystore.p12 /app/security/server-keystore.p12
 
 # Expor a porta necessária para o servidor RMI
 EXPOSE 1099
 
 # Iniciar o servidor RMI
-CMD ["java", "-jar", "rmi-server.jar"]
+#CMD ["java", "-jar", "rmi-server.jar"]
+CMD [ \
+    "java", \
+    "-Djavax.net.ssl.keyStore=/app/security/server-keystore.p12", \
+    "-Djavax.net.ssl.keyStorePassword=changeit", \
+    "-Djavax.net.ssl.keyStoreType=PKCS12", \
+    "-Djavax.net.debug=ssl,handshake", \
+    "-jar", \
+    "rmi-server.jar" \
+]

@@ -15,6 +15,7 @@ WORKDIR /app
 
 # Copiar os JARs gerados do estágio de build para o diretório de trabalho
 COPY ../target/rmi-client.jar /app/rmi-client.jar
+COPY ./client/security/client-truststore.p12 /app/security/client-truststore.p12
 
 # Iniciar o cliente RMI
 CMD ["java", "-jar", "rmi-client.jar"]

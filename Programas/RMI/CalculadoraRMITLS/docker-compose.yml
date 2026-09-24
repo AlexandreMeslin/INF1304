@@ -25,4 +25,5 @@ services:
 
 networks:
   calculadora-network:
+    name: calculadora-network
     driver: bridge
