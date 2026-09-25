@@ -1,0 +1,93 @@
+/**
+ * Client.java
+ * 
+ * Exemplo de aplicação cliente RMI (Remote Method Invocation).
+ * 
+ * Este exemplo implementa uma calculadora simples que se conecta a um servidor RMI
+ * para realizar operações matemáticas básicas: adição, subtração, multiplicação e divisão.
+ * 
+ * Adicionado posteriormente um cliente de echo para testar a comunicação com o servidor RMI.
+ * 
+ * Para compilar:
+ * $ mvn clean install
+ * $ sudo docker build -t calculator-rmi-server -f server/Dockerfile .
+ * $ sudo docker build -t calculator-rmi-client -f client/Dockerfile .
+ * 
+ * Para executar o servidor:
+ * $ sudo docker run -d --name rmi-server -p 1099:1099 calculator-rmi-server
+ * 
+ * Para executar o cliente:
+ * $ sudo docker run -d --name rmi-client calculator-rmi-client
+ * 
+ * Para importar o certificado do servidor no cliente, utilize o seguinte comando:
+ * $ keytool -importcert \
+ *   -alias rmitls-server \
+ *   -file ./server/security/rmitls-server.crt \
+ *   -keystore ./client/security/client-truststore.p12 \
+ *   -storetype PKCS12 \
+ *   -storepass changeit \
+ *   -noprompt
+ *
+ * @author Alexandre Meslin
+ */
+package br.com.meslin.rmitls.client;
+
+import java.rmi.ConnectException;
+import java.rmi.ConnectIOException;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
+import br.com.meslin.rmitls.shared.Calculator;
+import br.com.meslin.rmitls.shared.Echo;
+
+public class Client {
+    static int PORT = 1099; /// Porta padrão do RMI
+    public static void main(String[] args) {
+        Calculator calculadora = null;
+        Echo echo = null;
+
+        try {
+            // Configura o socket factory para usar TLS
+            SslRMIClientSocketFactory clientSocketFactory = new SslRMIClientSocketFactory();
+
+            Registry registry = null;
+
+            while(calculadora == null || echo == null) {
+                try {
+                    registry = LocateRegistry.getRegistry("rmi-server", PORT, clientSocketFactory);
+                    calculadora = (Calculator) registry.lookup("Calculator");
+                    echo = (Echo) registry.lookup("Echo");
+                } catch(ConnectIOException e) {
+                    System.out.println("[CLIENT - ConnectIOException] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - ConnectIOException] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
+                } catch(ConnectException e) {
+                    System.out.println("[CLIENT - ConnectException] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - ConnectException] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
+                } catch (Exception e) {
+                    System.out.println("[CLIENT - Exception] Falha ao conectar ao servidor RMI: " + e.getClass().getName() + ": " + e.getMessage());
+                    System.out.println("[CLIENT - Exception] Seridor RMI ainda não está pronto. Tentando novamente em 1 segundo...");
+                    Thread.sleep(10000);
+                }
+            }
+
+            double a = 12.0;
+            double b = 8.0;
+
+            System.out.println(a + " + " + b + " = " + calculadora.adicionar(a, b));
+            System.out.println(a + " - " + b + " = " + calculadora.subtrair(a, b));
+            System.out.println(a + " x " + b + " = " + calculadora.multiplicar(a, b));
+            System.out.println(a + " / " + b + " = " + calculadora.dividir(a, b));
+
+            String message = "Hello, RMI!";
+            String echoedMessage = echo.echo(message);
+            System.out.println("Echoed message: " + echoedMessage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

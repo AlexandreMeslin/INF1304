@@ -1,0 +1,29 @@
+services:
+  rmi-server:
+    build: 
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: rmi-server:latest
+    container_name: rmi-server
+    hostname: rmi-server
+    ports:
+      - "1099:1099"
+    networks:
+      - rmi-network
+
+  rmi-client:
+    build: 
+      context: .
+      dockerfile: ./client/Dockerfile
+    image: rmi-client:latest
+    container_name: rmi-client
+    hostname: rmi-client
+    depends_on:
+      - rmi-server
+    networks:
+      - rmi-network
+
+networks:
+  rmi-network:
+    name: rmi-network
+    driver: bridge

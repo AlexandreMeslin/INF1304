@@ -1,0 +1,29 @@
+services:
+  rmi-server:
+    build: 
+      context: .
+      dockerfile: ./server/Dockerfile
+    image: rmitls-server:latest
+    container_name: rmitls-server
+    hostname: rmitls-server
+    ports:
+      - "1099:1099"
+    networks:
+      - rmitls-network
+
+  rmi-client:
+    build: 
+      context: .
+      dockerfile: ./client/Dockerfile
+    image: rmitls-client:latest
+    container_name: rmitls-client
+    hostname: rmitls-client
+    depends_on:
+      - rmi-server
+    networks:
+      - rmitls-network
+
+networks:
+  rmitls-network:
+    name: rmitls-network
+    driver: bridge
