@@ -33,7 +33,7 @@ public class WebSocketServer {
      * This method initializes the WebSocket server and starts it on the specified host and port.
      */
     public static void startServer() {
-        server = new Server("localhost", 8080, "/chat", null, WebSocketServer.class);
+        server = new Server("0.0.0.0", 8080, "/chat", null, WebSocketServer.class);
 
         try {
             server.start();
