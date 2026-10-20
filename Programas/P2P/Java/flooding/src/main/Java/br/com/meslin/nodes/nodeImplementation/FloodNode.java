@@ -5,7 +5,7 @@ import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 import sinalgo.nodes.messages.NackBox;
 import sinalgo.nodes.timers.Timer;
-import nodes.messages.FloodMessage;
+import br.com.meslin.nodes.messages.FloodMessage;
 import sinalgo.tools.Tools;
 
 public class FloodNode extends Node {

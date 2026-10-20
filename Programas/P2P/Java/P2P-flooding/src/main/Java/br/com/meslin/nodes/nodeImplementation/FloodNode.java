@@ -5,8 +5,9 @@ import sinalgo.nodes.messages.Inbox;
 import sinalgo.nodes.messages.Message;
 import sinalgo.nodes.messages.NackBox;
 import sinalgo.nodes.timers.Timer;
-import nodes.messages.FloodMessage;
 import sinalgo.tools.Tools;
+import sinalgo.nodes.edges.Edge;
+import br.com.meslin.nodes.messages.FloodMessage;
 
 public class FloodNode extends Node {
     private boolean received = false;
@@ -22,10 +23,11 @@ public class FloodNode extends Node {
 
                 if (!received) {
                     received = true;
-                    Tools.appendToOutput("Node " + this.ID + " received message " + floodMsg.messageId + "\n");
+                    Tools.appendToOutput("Node " + this.getID() + " received message " + floodMsg.messageId + "\n");
 
                     // Forward the message to all neighbors
-                    for (Node neighbor : this.outgoingConnections) {
+                    for (Edge edge : this.getOutgoingConnections()) {
+                        Node neighbor = edge.getEndNode();
                         send(new FloodMessage(floodMsg.messageId), neighbor);
                     }
                 }
@@ -37,7 +39,12 @@ public class FloodNode extends Node {
     public void preStep() {}
 
     @Override
-    public void init() {}
+    public void init() {
+        // O nó 1 inicia o flooding
+        if (this.getID() == 1) {
+            startFlooding();
+        }
+    }
 
     @Override
     public void neighborhoodChange() {}
@@ -52,9 +59,9 @@ public class FloodNode extends Node {
     private static class StartFloodingTimer extends Timer {
         @Override
         public void fire() {
-            Node sender = this.node;
+            Node sender = getTargetNode();
             sender.broadcast(new FloodMessage(messageCounter++));
-            Tools.appendToOutput("Node " + sender.ID + " started flooding with message " + messageCounter + "\n");
+            Tools.appendToOutput("Node " + sender.getID() + " started flooding with message " + messageCounter + "\n");
         }
     }
 

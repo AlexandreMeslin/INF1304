@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.com.meslin</groupId>
+    <artifactId>p2p-flooding</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>P2P Flooding</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.release>8</maven.compiler.release>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>br.com.meslin</groupId>
+            <artifactId>sinalgo</artifactId>
+            <version>1.0.0-beta6</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/Java</sourceDirectory>
+
+        <resources>
+            <resource>
+                <directory>${project.basedir}</directory>
+                <includes>
+                    <include>VERSION</include>
+                    <include>WEB_PAGE_URL</include>
+                    <include>WEB_REPOSITORY_URL</include>
+                </includes>
+            </resource>
+
+            <resource>
+                <directory>${project.basedir}/icon</directory>
+                <includes>
+                    <include>sinalgo_21.png</include>
+                </includes>
+                <targetPath>sinalgo/images</targetPath>
+            </resource>
+
+            <resource>
+                <directory>${project.basedir}/src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <release>8</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+            </plugin>            
+        </plugins>
+    </build>
+
+</project>

@@ -1,8 +1,8 @@
 package br.com.meslin;
 
-import sinalgo.runtime.Main;
+//import sinalgo.runtime.Main;
 import sinalgo.tools.Tools;
-import nodes.nodeImplementations.FloodNode;
+import br.com.meslin.nodes.nodeImplementations.FloodNode;
 import sinalgo.nodes.Node;
 
 public class Main {
